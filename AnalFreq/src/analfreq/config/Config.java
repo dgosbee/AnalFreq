@@ -7,7 +7,21 @@ public class Config {
     public static final String xAxisLabel = "Time";
     public static final String yAxisLabel = "Frequency";
     public static final String blcTitle = "Events";
-
+    public static final boolean DEBUG = true;
+    
+    /**
+     * Convenience method for printing out debug info. Code throughout the
+     * system can use this by calling Config.debug("Some Message Here"); and
+     * the message will only print out if debugging is enabled. To enable 
+     * debugging, set DEBUG to true.
+     * @param s the String to print
+     */
+    public static void debug(String s){
+        if(DEBUG){
+            System.out.println(s);
+        }
+    }
+    
     /**
      * We are going to replace these later. Dynamic values will be used for
      * mouse zooming capabilities

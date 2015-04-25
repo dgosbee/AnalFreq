@@ -1,22 +1,32 @@
 package analfreq.freqevent;
 
 /**
- * "FreqEvent" == actual underlying data. != bubblechart representation. So not
- * the "bubbles" on screen
- *
- * @author dain
+ * A FreqEvent represents the underlying data of the object to be plotted.
+ * It is not the actual "bubble" on screen, but rather, the data represented
+ * by that bubble.
  */
 public final class FreqEvent {
 
-    private int startFreq; // Optional(for now)
-    private int centerFreq; // Required
-    private int endFreq; // Optional(for now)
-    private String instrument; // Required
-    private String description; // Optional
+    // Required Fields
+    private int centerFreq;
+    private String name;
+    
+    // Optional Fields
+    private int startFreq;  
+    private int endFreq;
+    private String description;
 
-    public FreqEvent(int centerFreq, String instrument) {
+    /**
+     * Created a new FreqEvent with the specified instrument name 
+     * and center frequency. These are the only two fields required
+     * for instantiation.
+     * 
+     * @param name The name of the instrument
+     * @param centerFreq The center frequency
+     */
+    public FreqEvent(String name, int centerFreq) {
+        this.name = name;
         this.centerFreq = centerFreq;
-        this.instrument = instrument;
     }
 
     /**
@@ -62,17 +72,17 @@ public final class FreqEvent {
     }
 
     /**
-     * @return the instrument
+     * @return the name
      */
     public String getInstrument() {
-        return instrument;
+        return name;
     }
 
     /**
-     * @param instrument the instrument to set
+     * @param instrument the name to set
      */
     public void setInstrument(String instrument) {
-        this.instrument = instrument;
+        this.name = instrument;
     }
 
     /**
@@ -89,16 +99,13 @@ public final class FreqEvent {
         this.description = description;
     }
 
-    //We can improve toString later
     public String toString() {
-
         String result = "";
-        result = result + "Instrument: " + instrument
+        result = result + "Instrument: " + name
                 + "\nDescription: " + description
                 + "\nStarting Frequency: " + startFreq
                 + "\nCenter Frequency: " + centerFreq
                 + "\nEnding Frequency: " + endFreq;
         return result;
     }
-
 }
