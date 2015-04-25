@@ -3,10 +3,10 @@ package analfreq.config;
 public class Config {
 
     //This stays here
-    public static final String stageTitle = "Frequency Masking";
-    public static final String xAxisLabel = "Time";
-    public static final String yAxisLabel = "Frequency";
-    public static final String blcTitle = "Events";
+    public static final String STAGE_TITLE = "Frequency Masking";
+    public static final String X_AXIS_LABEL = "Time";
+    public static final String Y_AXIS_LABEL = "Frequency";
+    public static final String BUBBLE_CHART_TITLE = "Events";
     public static final boolean DEBUG = true;
     
     /**

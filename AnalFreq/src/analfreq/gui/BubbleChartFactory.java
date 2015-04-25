@@ -13,9 +13,9 @@ public class BubbleChartFactory {
                 Config.MAX_Y_AXIS_LABEL, Config.STEP_Y_AXIS);
         final BubbleChart<Number, Number> bubbleChart
                 = new BubbleChart<>(xAxis, yAxis);
-        xAxis.setLabel(Config.xAxisLabel);
-        yAxis.setLabel(Config.yAxisLabel);
-        bubbleChart.setTitle(Config.blcTitle);
+        xAxis.setLabel(Config.X_AXIS_LABEL);
+        yAxis.setLabel(Config.Y_AXIS_LABEL);
+        bubbleChart.setTitle(Config.BUBBLE_CHART_TITLE);
         return bubbleChart;
     }
 }

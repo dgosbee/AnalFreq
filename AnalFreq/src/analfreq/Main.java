@@ -27,7 +27,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
-        stage.setTitle(Config.stageTitle);
+        stage.setTitle(Config.STAGE_TITLE);
         HBox root = new HBox();
         root.getChildren().addAll(bubbleChart, UIControls.createUIControls());
         stage.setScene(new Scene(root));
