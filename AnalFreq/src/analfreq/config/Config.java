@@ -1,8 +1,7 @@
 package analfreq.config;
 
 public class Config {
-
-    //This stays here
+    
     public static final String STAGE_TITLE = "Frequency Masking";
     public static final String X_AXIS_LABEL = "Time (Seconds)";
     public static final String Y_AXIS_LABEL = "Frequency (Hz)";
@@ -25,10 +24,12 @@ public class Config {
     /**
      * To be replaced later with dynamic values
      */
-    public static final int MIN_X_AXIS_LABEL = 1;
-    public static final int MAX_X_AXIS_LABEL = 25;
-    public static final int STEP_X_AXIS = 5;
-    public static final int MIN_Y_AXIS_LABEL = 20;
-    public static final int MAX_Y_AXIS_LABEL = 500;
-    public static final int STEP_Y_AXIS = 20;
+    public static final int MIN_SEC = 1;
+    public static final int MAX_SEC = 25;
+    public static final int STEP_SEC = 5;
+    public static final int MIN_FREQ = 0;
+    
+    // zoom in = smaller MAX_FREQ
+    public static int MAX_FREQ = 20000;
+    public static int STEP_FREQ = 10;
 }
