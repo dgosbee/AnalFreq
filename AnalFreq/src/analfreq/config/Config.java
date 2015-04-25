@@ -4,9 +4,9 @@ public class Config {
 
     //This stays here
     public static final String STAGE_TITLE = "Frequency Masking";
-    public static final String X_AXIS_LABEL = "Time";
-    public static final String Y_AXIS_LABEL = "Frequency";
-    public static final String BUBBLE_CHART_TITLE = "Events";
+    public static final String X_AXIS_LABEL = "Time (Seconds)";
+    public static final String Y_AXIS_LABEL = "Frequency (Hz)";
+    public static final String BUBBLE_CHART_TITLE = "Frequency Events";
     public static final boolean DEBUG = true;
     
     /**
@@ -29,6 +29,6 @@ public class Config {
     public static final int MAX_X_AXIS_LABEL = 25;
     public static final int STEP_X_AXIS = 5;
     public static final int MIN_Y_AXIS_LABEL = 20;
-    public static final int MAX_Y_AXIS_LABEL = 100;
+    public static final int MAX_Y_AXIS_LABEL = 500;
     public static final int STEP_Y_AXIS = 20;
 }
