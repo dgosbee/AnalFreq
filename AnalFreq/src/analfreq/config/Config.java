@@ -23,14 +23,12 @@ public class Config {
     }
     
     /**
-     * We are going to replace these later. Dynamic values will be used for
-     * mouse zooming capabilities
+     * To be replaced later with dynamic values
      */
-    public static int minXAxisLabel = 1;
-    public static int maxXAxisLabel = 25;
-    public static int stepXAxis = 5;
-    public static int minYAxisLabel = 20;
-    public static int maxYAxisLabel = 100;
-    public static int stepYAxis = 20;
-
+    public static final int MIN_X_AXIS_LABEL = 1;
+    public static final int MAX_X_AXIS_LABEL = 25;
+    public static final int STEP_X_AXIS = 5;
+    public static final int MIN_Y_AXIS_LABEL = 20;
+    public static final int MAX_Y_AXIS_LABEL = 100;
+    public static final int STEP_Y_AXIS = 20;
 }

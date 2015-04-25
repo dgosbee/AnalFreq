@@ -1,7 +1,7 @@
 package analfreq;
 
 import analfreq.config.Config;
-import analfreq.gui.DisplayChart;
+import analfreq.gui.BubbleChartFactory;
 import analfreq.gui.UIControls;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    private static final BubbleChart bubbleChart = DisplayChart.createDisplayChart();
+    private static final BubbleChart bubbleChart = BubbleChartFactory.createBubbleChart();
 
     /**
      * Plots a new object onto the bubble chart. This method is called 
