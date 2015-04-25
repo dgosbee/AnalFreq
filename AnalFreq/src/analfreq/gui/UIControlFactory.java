@@ -2,7 +2,6 @@ package analfreq.gui;
 
 import analfreq.datamanager.DataManager;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -11,50 +10,75 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 
-public class UIControls {
+public class UIControlFactory {
 
+    // GUI components for "Create New Freq Event"
+    private static Label createNewFreqEventLabel;
+    private static Label centerFreq;
+    private static Label instrumentName;
+    private static Label instrumentDescription;
+    private static HBox instrumentTypeControls;
+    private static HBox centerFreqControls;
+    private static HBox instrumentDescriptionControls;
+    private static HBox buttonControls;
     private static TextField centerFreqTextField;
     private static TextField instrumentNameTextField;
     private static TextField instrumentDescriptionTextField;
 
+    // GUI components for "Property Editor"
+    private static Label propertyEditorLabel;
+
+    /**
+     * Private convenience method for clearing the text fields.
+     */
     private static void clearTextField() {
         instrumentNameTextField.clear();
         centerFreqTextField.clear();
         instrumentDescriptionTextField.clear();
+    }
 
+    
+    /**
+     * Creates the UI controls that appear on the right side of the screen.
+     * Controls are returned on a FlowPane, which can then be placed inside
+     * an appropriate layout manager.
+     * 
+     * @return A FlowPane containing the UI controls
+     */
+    public static FlowPane createUIControls() {
+        FlowPane UIControls = new FlowPane(Orientation.VERTICAL);
+        buildNewFreqEventPanel();
+        buildPropertyEditorPanel();
+        UIControls.getChildren().add(createNewFreqEventLabel);
+        UIControls.getChildren().add(instrumentTypeControls);
+        UIControls.getChildren().add(centerFreqControls);
+        UIControls.getChildren().add(instrumentDescriptionControls);
+        UIControls.getChildren().add(buttonControls);
+        UIControls.getChildren().add(propertyEditorLabel);
+        return UIControls;
     }
 
     /**
-     * We are probably going to rename this to something like "Property editor"
-     * so we can follow the convention better
-     *
-     * @return
+     * Private convenience method for creating the GUI components of the 
+     * "Create New Event" portion of the GUI. This code is still pretty 
+     * gnarly and is in need of a good cleanup.
      */
-    public static FlowPane createUIControls() {
-
-        FlowPane UIControls = new FlowPane(Orientation.VERTICAL);
-        /**
-         * This is where the create new event panel begins We are probably going
-         * to move this to its own class
-         */
-        Label createNewFreqEventLabel = new Label("Create New Event");
+    private static void buildNewFreqEventPanel() {
+        createNewFreqEventLabel = new Label("Create New Event");
         createNewFreqEventLabel.setFont(new Font(30));
-
-        Label centerFreq = new Label("Center Frequency:");
+        centerFreq = new Label("Center Frequency:");
         centerFreqTextField = new TextField();
-        HBox centerFreqControls = new HBox();
+        centerFreqControls = new HBox();
         centerFreqControls.getChildren().addAll(centerFreq, centerFreqTextField);
         centerFreqControls.setSpacing(10);
-
-        Label instrumentName = new Label("Instrument Name:");
+        instrumentName = new Label("Instrument Name:");
         instrumentNameTextField = new TextField();
-        HBox instrumentTypeControls = new HBox();
+        instrumentTypeControls = new HBox();
         instrumentTypeControls.getChildren().addAll(instrumentName, instrumentNameTextField);
         instrumentTypeControls.setSpacing(10);
-
         Label instrumentDescription = new Label("Description:");
         instrumentDescriptionTextField = new TextField();
-        HBox instrumentDescriptionControls = new HBox();
+        instrumentDescriptionControls = new HBox();
         instrumentDescriptionControls.getChildren().addAll(instrumentDescription,
                 instrumentDescriptionTextField);
         instrumentDescriptionControls.setSpacing(10);
@@ -85,9 +109,7 @@ public class UIControls {
                         instrumentDescriptionTextField.getText());
                 //Clear the text fields
                 clearTextField();
-
             }
-
         });
 
         // "Reset" button creation
@@ -98,27 +120,16 @@ public class UIControls {
             System.out.println("Reset");
             clearTextField();
         });
-
-        HBox buttonControls = new HBox();
+        buttonControls = new HBox();
         buttonControls.getChildren().addAll(submitButton, resetButton);
         buttonControls.setSpacing(10);
-
-        /**
-         * This is where the property editor will be defined However we are
-         * probably going to move this to its own class also
-         */
-        Label propertyEditorLabel = new Label("Property Editor");
-        propertyEditorLabel.setFont(new Font(30));
-
-        //Everything below here needs to stay in this class.  DO NOT MOVE
-        UIControls.getChildren().add(createNewFreqEventLabel);
-        UIControls.getChildren().add(instrumentTypeControls);
-        UIControls.getChildren().add(centerFreqControls);
-        UIControls.getChildren().add(instrumentDescriptionControls);
-        UIControls.getChildren().add(buttonControls);
-        UIControls.getChildren().add(propertyEditorLabel);
-
-        return UIControls;
     }
 
+    /**
+     * Private convenience method for building the property editor panel.
+     */
+    private static void buildPropertyEditorPanel() {
+        propertyEditorLabel = new Label("Property Editor");
+        propertyEditorLabel.setFont(new Font(30));
+    }
 }

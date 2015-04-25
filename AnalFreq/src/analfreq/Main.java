@@ -2,7 +2,7 @@ package analfreq;
 
 import analfreq.config.Config;
 import analfreq.gui.BubbleChartFactory;
-import analfreq.gui.UIControls;
+import analfreq.gui.UIControlFactory;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.chart.BubbleChart;
@@ -29,7 +29,7 @@ public class Main extends Application {
     public void start(Stage stage) {
         stage.setTitle(Config.STAGE_TITLE);
         HBox root = new HBox();
-        root.getChildren().addAll(bubbleChart, UIControls.createUIControls());
+        root.getChildren().addAll(bubbleChart, UIControlFactory.createUIControls());
         stage.setScene(new Scene(root));
         stage.getIcons().add(new Image("icon/Asshole.jpg"));
         stage.show();
