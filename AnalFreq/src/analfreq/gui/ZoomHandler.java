@@ -19,6 +19,10 @@ import javafx.scene.layout.Region;
  */
 public class ZoomHandler {
 
+    // ZOOM
+    private static int currMaxY = Config.MAX_FREQ;
+
+    // DRAG
     private static NumberAxis xAxis;
     private static NumberAxis yAxis;
     private static Region plotArea;
@@ -48,56 +52,54 @@ public class ZoomHandler {
                 moveAxis(yAxis, y, lastMouseY);
             }
         });
+
+        bubbleChart.setOnScroll((ScrollEvent event) -> {
+            if (event.getDeltaY() > 0) {
+                zoomIn();
+            } else {
+                zoomOut();
+            }
+        });
+    }
+
+    private static void zoomIn() {
+        int newMaxY = (int) (currMaxY * .5);
+
+        if (newMaxY <= 20) {
+            newMaxY = 20;
+        }
+        currMaxY = newMaxY;
+
+        if (newMaxY <= yAxis.getLowerBound()) {
+            newMaxY = (int) yAxis.getLowerBound() + 50;
+        }
+        yAxis.setUpperBound(newMaxY);
+    }
+
+    private static void zoomOut() {
+        int newMaxY = (int) (currMaxY * 1.5);
+
+        if (newMaxY >= 20000) {
+            newMaxY = 20000;
+        }
+        currMaxY = newMaxY;
+
+        if (newMaxY <= yAxis.getLowerBound()) {
+            newMaxY = (int) yAxis.getLowerBound() + 50;
+        }
+        yAxis.setUpperBound(newMaxY);
     }
 
     private static void moveAxis(NumberAxis axis, double mouseLocation,
             DoubleProperty lastMouseLocation) {
         double scale = axis.getScale();
         double delta = (mouseLocation - lastMouseLocation.get()) / scale;
-        axis.setLowerBound(axis.getLowerBound() - delta);
-        axis.setUpperBound(axis.getUpperBound() - delta);
+        double newLow = (axis.getLowerBound() - delta);
+        double newHi = (axis.getUpperBound() - delta);
+        int low = (int) Math.round(newLow);
+        int hi = (int) Math.round(newHi);
+        axis.setLowerBound(low);
+        axis.setUpperBound(hi);
         lastMouseLocation.set(mouseLocation);
     }
-
-
-    /*
-     OLD ZOOM CODE: KEEP FOR NOW AS COMMENT
-     private static BubbleChart bubbleChart;
-     private static int scrollPos = 0;
-     private static int currMaxY = Config.MAX_FREQ;
-
-     // first step in zoom.. not finished yet
-     public static void handleZoom(BubbleChart bc) {
-     bubbleChart = bc;
-     bubbleChart.setOnScroll((ScrollEvent event) -> {
-     if (event.getDeltaY() > 0) {
-     zoomIn();
-     } else {
-     zoomOut();
-     }
-     });
-     }
-
-     private static void zoomIn() {
-     int newMaxY = (int) (currMaxY * .5);
-     if (newMaxY <= 20) {
-     newMaxY = 20;
-     }
-     currMaxY = newMaxY;
-     NumberAxis yAxis = (NumberAxis) bubbleChart.getYAxis();
-     yAxis.setAnimated(true);
-     yAxis.setUpperBound(newMaxY);
-     }
-
-     private static void zoomOut() {
-     int newMaxY = (int) (currMaxY * 1.5);
-     if (newMaxY >= 20000) {
-     newMaxY = 20000;
-     }
-     currMaxY = newMaxY;
-     NumberAxis yAxis = (NumberAxis) bubbleChart.getYAxis();
-     yAxis.setAnimated(true);
-     yAxis.setUpperBound(newMaxY);
-     }
-     */
 }
