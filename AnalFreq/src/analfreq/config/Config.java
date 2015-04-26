@@ -25,11 +25,11 @@ public class Config {
      * To be replaced later with dynamic values
      */
     public static final int MIN_SEC = 1;
-    public static final int MAX_SEC = 25;
+    public static final int MAX_SEC = 120;
     public static final int STEP_SEC = 5;
     public static final int MIN_FREQ = 0;
     
     // zoom in = smaller MAX_FREQ
-    public static int MAX_FREQ = 20000;
-    public static int STEP_FREQ = 10;
+    public static int MAX_FREQ = 1000;
+    public static int STEP_FREQ = 50;
 }
