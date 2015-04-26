@@ -71,7 +71,7 @@ public class ZoomHandler {
         currMaxY = newMaxY;
 
         if (newMaxY <= yAxis.getLowerBound()) {
-            newMaxY = (int) yAxis.getLowerBound() + 50;
+            newMaxY = (int) yAxis.getLowerBound() + Config.STEP_FREQ;
         }
         yAxis.setUpperBound(newMaxY);
     }
@@ -85,7 +85,7 @@ public class ZoomHandler {
         currMaxY = newMaxY;
 
         if (newMaxY <= yAxis.getLowerBound()) {
-            newMaxY = (int) yAxis.getLowerBound() + 50;
+            newMaxY = (int) yAxis.getLowerBound() + Config.STEP_FREQ;
         }
         yAxis.setUpperBound(newMaxY);
     }

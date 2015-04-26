@@ -31,5 +31,5 @@ public class Config {
     
     // zoom in = smaller MAX_FREQ
     public static int MAX_FREQ = 1000;
-    public static int STEP_FREQ = 50;
+    public static int STEP_FREQ = 500;
 }
