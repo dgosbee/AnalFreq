@@ -15,6 +15,7 @@ public class BubbleChartFactory {
         xAxis.setLabel(Config.X_AXIS_LABEL);
         yAxis.setLabel(Config.Y_AXIS_LABEL);
         bubbleChart.setTitle(Config.BUBBLE_CHART_TITLE);
+        bubbleChart.setAnimated(false);
         return bubbleChart;
     }
 }
