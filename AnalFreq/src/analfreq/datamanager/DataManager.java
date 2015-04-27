@@ -6,6 +6,7 @@ import analfreq.freqevent.FreqEvent;
 import javafx.beans.property.DoubleProperty;
 import javafx.scene.Node;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Tooltip;
 import javafx.scene.shape.Circle;
 
 /**
@@ -41,13 +42,14 @@ public class DataManager {
         // params are: seconds, freq
 
         XYChart.Data data = new XYChart.Data(30, freqEvent.getCenterFreq());
-
         series.getData().add(data);
         Main.plotObject(series);
         Node node = data.getNode();
         node.setScaleX(10);
         double scaleY = freqEvent.getCenterFreq()-freqEvent.getMinFreq();
         node.setScaleY(scaleY);
+     
+        Tooltip.install(node, new Tooltip(freqEvent.toString()));
        
         Config.debug("FreqEvent Max: "+freqEvent.getMaxFreq());
         Config.debug("FreqEvent Min: "+freqEvent.getMinFreq());

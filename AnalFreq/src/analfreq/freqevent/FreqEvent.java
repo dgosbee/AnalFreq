@@ -100,9 +100,9 @@ public final class FreqEvent {
         String result = "";
         result = result + "Instrument: " + name
                 + "\nDescription: " + description
-                + "\nMinimum Frequency: " + minFreq
+                + "\nMaximum Frequency: " + maxFreq
                 + "\nCenter Frequency: " + centerFreq
-                + "\nMaximum Frequency: " + maxFreq;
+                + "\nMinimum Frequency: " + minFreq;
         return result;
     }
 }
