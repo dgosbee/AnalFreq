@@ -3,7 +3,10 @@ package analfreq.datamanager;
 import analfreq.Main;
 import analfreq.config.Config;
 import analfreq.freqevent.FreqEvent;
+import javafx.beans.property.DoubleProperty;
+import javafx.scene.Node;
 import javafx.scene.chart.XYChart;
+import javafx.scene.shape.Circle;
 
 /**
  * This class forms the communication mechanism between the input GUI and the
@@ -24,14 +27,26 @@ public class DataManager {
             String centerFreq, String description) {
         plotInstrument(name, centerFreq, description);
     }
-    
+
     private static void plotInstrument(String name, String centerFreq, String description) {
-        FreqEvent freqEvent = new FreqEvent(name,Integer.parseInt(centerFreq));
+        FreqEvent freqEvent = new FreqEvent(name, Integer.parseInt(centerFreq));
         freqEvent.setDescription(description);
+        freqEvent.setStartFreq(0); // will be set by GUI, hardcoded for now
+        freqEvent.setEndFreq(100); // will be set by GUI. hardcoded for now
         XYChart.Series series = new XYChart.Series();
         series.setName(freqEvent.getInstrument());
-        series.getData().add(new XYChart.Data(7, freqEvent.getCenterFreq()));
+        // params are: seconds, freq
+
+        XYChart.Data data = new XYChart.Data(10, freqEvent.getCenterFreq());
+
+        series.getData().add(data);
         Main.plotObject(series);
+        Node node = data.getNode();
+        node.setScaleX(10);
+        node.setScaleY((freqEvent.getStartFreq()+freqEvent.getEndFreq())/2);
+       
+       
+
         Config.debug(freqEvent.toString());
     }
 }
