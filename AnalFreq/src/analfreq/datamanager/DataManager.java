@@ -44,11 +44,14 @@ public class DataManager {
         series.getData().add(data);
         Main.plotObject(series);
         Node node = data.getNode();
-        node.setScaleX(10);
-        node.setScaleY((freqEvent.getMinFreq()+freqEvent.getMaxFreq())/2);
+        node.setScaleX(1);
+        double scaleY = freqEvent.getCenterFreq()-freqEvent.getMinFreq();
+        node.setScaleY(scaleY);
        
-       
+        Config.debug("FreqEvent Max: "+freqEvent.getMaxFreq());
+        Config.debug("FreqEvent Min: "+freqEvent.getMinFreq());
+        Config.debug("Calculated scaleY: "+scaleY);
 
-        Config.debug(freqEvent.toString());
+        
     }
 }
