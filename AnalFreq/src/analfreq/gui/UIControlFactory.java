@@ -15,7 +15,6 @@ public class UIControlFactory {
 
     // GUI components for "Create New Freq Event"
     private static Label createNewFreqEventLabel;
-    private static Label centerFreq;
     private static Label minFreq;
     private static Label maxFreq;
     private static Label eventName;
@@ -23,12 +22,12 @@ public class UIControlFactory {
     private static HBox eventTypeControls;
     private static HBox minFreqControls;
     private static HBox maxFreqControls;
-    private static HBox centerFreqControls;
+ 
     private static HBox eventDescriptionControls;
     private static HBox buttonControls;
     private static TextField minFreqTextField;
     private static TextField maxFreqTextField;
-    private static TextField centerFreqTextField;
+  
     private static TextField eventNameTextField;
     private static TextField eventDescriptionTextField;
 
@@ -41,7 +40,6 @@ public class UIControlFactory {
     private static void clearTextField() {
         eventNameTextField.clear();
         minFreqTextField.clear();
-        centerFreqTextField.clear();
         maxFreqTextField.clear();
         eventDescriptionTextField.clear();
     }
@@ -61,7 +59,6 @@ public class UIControlFactory {
         UIControls.getChildren().add(createNewFreqEventLabel);
         UIControls.getChildren().add(eventTypeControls);
         UIControls.getChildren().add(minFreqControls);
-        UIControls.getChildren().add(centerFreqControls);
         UIControls.getChildren().add(maxFreqControls);
         UIControls.getChildren().add(eventDescriptionControls);
         UIControls.getChildren().add(buttonControls);
@@ -82,26 +79,12 @@ public class UIControlFactory {
         minFreqTextField = new TextField();
         minFreqControls = new HBox();
         minFreqControls.getChildren().addAll(minFreq, minFreqTextField);
-        minFreqControls.setSpacing(10);
-        
-        
-        
-        centerFreq = new Label("Center Frequency:");
-        centerFreqTextField = new TextField();
-        centerFreqControls = new HBox();
-        centerFreqControls.getChildren().addAll(centerFreq, centerFreqTextField);
-        centerFreqControls.setSpacing(10);
-        
-        
+        minFreqControls.setSpacing(10);   
         maxFreq = new Label("Maximum Frequency:");
         maxFreqTextField = new TextField();
         maxFreqControls = new HBox();
         maxFreqControls.getChildren().addAll(maxFreq, maxFreqTextField);
         maxFreqControls.setSpacing(10);
-        
-        
-        
-        
         eventName = new Label("Event Name:");
         eventNameTextField = new TextField();
         eventTypeControls = new HBox();
@@ -125,17 +108,14 @@ public class UIControlFactory {
         submitButton.setOnAction((ActionEvent event) -> {
             //Ensure that user enters data in the correct format
             String minFreqText = minFreqTextField.getText();
-            String centerFreqText = centerFreqTextField.getText();
             String maxFreqText = maxFreqTextField.getText();
             
             Config.debug("Inspecting text supplied by user: "
-                    + minFreqText + 
-                    " " + centerFreqText + 
+                    + minFreqText +  
                     " " + maxFreqText);
             //The input string must be numbers only.  Cannot contain letters
             String regex = "\\D+";
-            if (minFreqText.matches(regex) && centerFreqText.matches(regex)
-            && maxFreqText.matches(regex)) {
+            if (minFreqText.matches(regex) && maxFreqText.matches(regex)) {
                 System.out.println("Invalid input.");
 
             } else {
@@ -143,7 +123,6 @@ public class UIControlFactory {
                 //Sending the data to the DataManager
                 DataManager.processData(eventNameTextField.getText(),
                         minFreqTextField.getText(),
-                        centerFreqTextField.getText(),
                         maxFreqTextField.getText(),
                         eventDescriptionTextField.getText());
                 //Clear the text fields

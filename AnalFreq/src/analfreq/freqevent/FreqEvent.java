@@ -24,9 +24,11 @@ public final class FreqEvent {
      * @param name The name of the instrument
      * @param centerFreq The center frequency
      */
-    public FreqEvent(String name, int centerFreq) {
+    public FreqEvent(String name, int minFreq, int maxFreq) {
         this.name = name;
-        this.centerFreq = centerFreq;
+        this.minFreq = minFreq;
+        this.maxFreq = maxFreq;
+        this.centerFreq = (minFreq+maxFreq)/2;
     }
 
     /**
@@ -44,17 +46,12 @@ public final class FreqEvent {
     }
 
     /**
+     * The center frequency is automatically calculated based on the provided
+     * minimum and maximum frequencies.
      * @return the centerFreq
      */
     public int getCenterFreq() {
         return centerFreq;
-    }
-
-    /**
-     * @param centerFreq the centerFreq to set
-     */
-    public void setCenterFreq(int centerFreq) {
-        this.centerFreq = centerFreq;
     }
 
     /**
