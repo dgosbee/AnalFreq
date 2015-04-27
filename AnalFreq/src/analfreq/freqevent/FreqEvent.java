@@ -12,8 +12,8 @@ public final class FreqEvent {
     private String name;
     
     // Optional Fields
-    private int startFreq;  
-    private int endFreq;
+    private int minFreq;  
+    private int maxFreq;
     private String description;
 
     /**
@@ -30,17 +30,17 @@ public final class FreqEvent {
     }
 
     /**
-     * @return the startFreq
+     * @return the minFreq
      */
-    public int getStartFreq() {
-        return startFreq;
+    public int getMinFreq() {
+        return minFreq;
     }
 
     /**
-     * @param startFreq the startFreq to set
+     * @param startFreq the minFreq to set
      */
-    public void setStartFreq(int startFreq) {
-        this.startFreq = startFreq;
+    public void setMinFreq(int startFreq) {
+        this.minFreq = startFreq;
     }
 
     /**
@@ -58,17 +58,17 @@ public final class FreqEvent {
     }
 
     /**
-     * @return the endFreq
+     * @return the maxFreq
      */
-    public int getEndFreq() {
-        return endFreq;
+    public int getMaxFreq() {
+        return maxFreq;
     }
 
     /**
-     * @param endFreq the endFreq to set
+     * @param endFreq the maxFreq to set
      */
-    public void setEndFreq(int endFreq) {
-        this.endFreq = endFreq;
+    public void setMaxFreq(int endFreq) {
+        this.maxFreq = endFreq;
     }
 
     /**
@@ -103,9 +103,9 @@ public final class FreqEvent {
         String result = "";
         result = result + "Instrument: " + name
                 + "\nDescription: " + description
-                + "\nStarting Frequency: " + startFreq
+                + "\nMinimum Frequency: " + minFreq
                 + "\nCenter Frequency: " + centerFreq
-                + "\nEnding Frequency: " + endFreq;
+                + "\nMaximum Frequency: " + maxFreq;
         return result;
     }
 }

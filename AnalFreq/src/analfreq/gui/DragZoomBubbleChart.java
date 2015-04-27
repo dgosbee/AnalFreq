@@ -18,10 +18,10 @@ public class DragZoomBubbleChart extends BubbleChart {
     private final DoubleProperty lastMouseY = new SimpleDoubleProperty();
 
     public DragZoomBubbleChart(NumberAxis xAxis, NumberAxis yAxis) {
-        
+
         super(xAxis, yAxis);
         plotArea = (Region) lookup(".chart-plot-background");
-        
+
         setOnMousePressed((MouseEvent event) -> {
             final double x = event.getX();
             final double y = event.getY();

@@ -1,5 +1,6 @@
 package analfreq.gui;
 
+import analfreq.config.Config;
 import analfreq.datamanager.DataManager;
 import javafx.event.ActionEvent;
 import javafx.geometry.Orientation;
@@ -15,15 +16,21 @@ public class UIControlFactory {
     // GUI components for "Create New Freq Event"
     private static Label createNewFreqEventLabel;
     private static Label centerFreq;
-    private static Label instrumentName;
-    private static Label instrumentDescription;
-    private static HBox instrumentTypeControls;
+    private static Label minFreq;
+    private static Label maxFreq;
+    private static Label eventName;
+    private static Label eventDescription;
+    private static HBox eventTypeControls;
+    private static HBox minFreqControls;
+    private static HBox maxFreqControls;
     private static HBox centerFreqControls;
-    private static HBox instrumentDescriptionControls;
+    private static HBox eventDescriptionControls;
     private static HBox buttonControls;
+    private static TextField minFreqTextField;
+    private static TextField maxFreqTextField;
     private static TextField centerFreqTextField;
-    private static TextField instrumentNameTextField;
-    private static TextField instrumentDescriptionTextField;
+    private static TextField eventNameTextField;
+    private static TextField eventDescriptionTextField;
 
     // GUI components for "Property Editor"
     private static Label propertyEditorLabel;
@@ -32,9 +39,11 @@ public class UIControlFactory {
      * Private convenience method for clearing the text fields.
      */
     private static void clearTextField() {
-        instrumentNameTextField.clear();
+        eventNameTextField.clear();
+        minFreqTextField.clear();
         centerFreqTextField.clear();
-        instrumentDescriptionTextField.clear();
+        maxFreqTextField.clear();
+        eventDescriptionTextField.clear();
     }
 
     
@@ -50,9 +59,11 @@ public class UIControlFactory {
         buildNewFreqEventPanel();
         buildPropertyEditorPanel();
         UIControls.getChildren().add(createNewFreqEventLabel);
-        UIControls.getChildren().add(instrumentTypeControls);
+        UIControls.getChildren().add(eventTypeControls);
+        UIControls.getChildren().add(minFreqControls);
         UIControls.getChildren().add(centerFreqControls);
-        UIControls.getChildren().add(instrumentDescriptionControls);
+        UIControls.getChildren().add(maxFreqControls);
+        UIControls.getChildren().add(eventDescriptionControls);
         UIControls.getChildren().add(buttonControls);
         UIControls.getChildren().add(propertyEditorLabel);
         return UIControls;
@@ -66,22 +77,42 @@ public class UIControlFactory {
     private static void buildNewFreqEventPanel() {
         createNewFreqEventLabel = new Label("Create New Event");
         createNewFreqEventLabel.setFont(new Font(30));
+        
+        minFreq = new Label("Minimum Frequency:");
+        minFreqTextField = new TextField();
+        minFreqControls = new HBox();
+        minFreqControls.getChildren().addAll(minFreq, minFreqTextField);
+        minFreqControls.setSpacing(10);
+        
+        
+        
         centerFreq = new Label("Center Frequency:");
         centerFreqTextField = new TextField();
         centerFreqControls = new HBox();
         centerFreqControls.getChildren().addAll(centerFreq, centerFreqTextField);
         centerFreqControls.setSpacing(10);
-        instrumentName = new Label("Instrument Name:");
-        instrumentNameTextField = new TextField();
-        instrumentTypeControls = new HBox();
-        instrumentTypeControls.getChildren().addAll(instrumentName, instrumentNameTextField);
-        instrumentTypeControls.setSpacing(10);
-        Label instrumentDescription = new Label("Description:");
-        instrumentDescriptionTextField = new TextField();
-        instrumentDescriptionControls = new HBox();
-        instrumentDescriptionControls.getChildren().addAll(instrumentDescription,
-                instrumentDescriptionTextField);
-        instrumentDescriptionControls.setSpacing(10);
+        
+        
+        maxFreq = new Label("Maximum Frequency:");
+        maxFreqTextField = new TextField();
+        maxFreqControls = new HBox();
+        maxFreqControls.getChildren().addAll(maxFreq, maxFreqTextField);
+        maxFreqControls.setSpacing(10);
+        
+        
+        
+        
+        eventName = new Label("Event Name:");
+        eventNameTextField = new TextField();
+        eventTypeControls = new HBox();
+        eventTypeControls.getChildren().addAll(eventName, eventNameTextField);
+        eventTypeControls.setSpacing(10);
+        eventDescription = new Label("Event Description:");
+        eventDescriptionTextField = new TextField();
+        eventDescriptionControls = new HBox();
+        eventDescriptionControls.getChildren().addAll(eventDescription,
+                eventDescriptionTextField);
+        eventDescriptionControls.setSpacing(10);
 
         /**
          * We need some kind of selection option to link the instruments and
@@ -93,20 +124,28 @@ public class UIControlFactory {
         submitButton.setText("Submit");
         submitButton.setOnAction((ActionEvent event) -> {
             //Ensure that user enters data in the correct format
+            String minFreqText = minFreqTextField.getText();
             String centerFreqText = centerFreqTextField.getText();
-            System.out.println("Inspecting text supplied by user: "
-                    + centerFreqText);
+            String maxFreqText = maxFreqTextField.getText();
+            
+            Config.debug("Inspecting text supplied by user: "
+                    + minFreqText + 
+                    " " + centerFreqText + 
+                    " " + maxFreqText);
             //The input string must be numbers only.  Cannot contain letters
             String regex = "\\D+";
-            if (centerFreqText.matches(regex)) {
+            if (minFreqText.matches(regex) && centerFreqText.matches(regex)
+            && maxFreqText.matches(regex)) {
                 System.out.println("Invalid input.");
 
             } else {
 
                 //Sending the data to the DataManager
-                DataManager.processData(instrumentNameTextField.getText(),
+                DataManager.processData(eventNameTextField.getText(),
+                        minFreqTextField.getText(),
                         centerFreqTextField.getText(),
-                        instrumentDescriptionTextField.getText());
+                        maxFreqTextField.getText(),
+                        eventDescriptionTextField.getText());
                 //Clear the text fields
                 clearTextField();
             }
