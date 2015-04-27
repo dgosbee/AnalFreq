@@ -23,16 +23,18 @@ public class DataManager {
      * @param centerFreq the center frequency
      * @param description a plain text description of the instrument
      */
-    public static void processData(String name,
-            String centerFreq, String description) {
-        plotInstrument(name, centerFreq, description);
+    public static void processData(String name, String minFreq,
+            String centerFreq, String maxFreq, String description) {
+        plotInstrument(name, minFreq, centerFreq, maxFreq, description);
     }
 
-    private static void plotInstrument(String name, String centerFreq, String description) {
+    private static void plotInstrument(String name, String minFreq,
+            String centerFreq, String maxFreq, String description) {
         FreqEvent freqEvent = new FreqEvent(name, Integer.parseInt(centerFreq));
         freqEvent.setDescription(description);
-        freqEvent.setStartFreq(0); // will be set by GUI, hardcoded for now
-        freqEvent.setEndFreq(100); // will be set by GUI. hardcoded for now
+        Config.debug("Setting minimum frequency");
+        freqEvent.setMinFreq(Integer.parseInt(minFreq)); // will be set by GUI, hardcoded for now
+        freqEvent.setMaxFreq(Integer.parseInt(maxFreq)); // will be set by GUI. hardcoded for now
         XYChart.Series series = new XYChart.Series();
         series.setName(freqEvent.getInstrument());
         // params are: seconds, freq
@@ -43,7 +45,7 @@ public class DataManager {
         Main.plotObject(series);
         Node node = data.getNode();
         node.setScaleX(10);
-        node.setScaleY((freqEvent.getStartFreq()+freqEvent.getEndFreq())/2);
+        node.setScaleY((freqEvent.getMinFreq()+freqEvent.getMaxFreq())/2);
        
        
 
