@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    private static final DragZoomBubbleChart dzBubbleChart
+    private static final DragZoomBubbleChart chart
             = DragZoomBubbleChartFactory.createBubbleChart();
 
     /**
@@ -23,14 +23,15 @@ public class Main extends Application {
      * @param series
      */
     public static void plotObject(XYChart.Series series) {
-        dzBubbleChart.getData().addAll(series);
+        // Add data to the chart
+        chart.getData().addAll(series);
     }
 
     @Override
     public void start(Stage stage) {
         stage.setTitle(Config.STAGE_TITLE);
         HBox root = new HBox();
-        root.getChildren().addAll(dzBubbleChart, UIControlFactory.createUIControls());
+        root.getChildren().addAll(chart, UIControlFactory.createUIControls());
         stage.setScene(new Scene(root));
         stage.getIcons().add(new Image("icon/Asshole.jpg"));
         stage.show();

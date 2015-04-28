@@ -7,28 +7,24 @@ package analfreq.freqevent;
  */
 public final class FreqEvent {
 
-    // Required Fields
-    private int centerFreq;
     private String name;
-    
-    // Optional Fields
     private int minFreq;  
     private int maxFreq;
+    private int centerFreq;
+    private int startTime;
+    private int midTime;
+    private int endTime;
     private String description;
 
-    /**
-     * Created a new FreqEvent with the specified instrument name 
-     * and center frequency. These are the only two fields required
-     * for instantiation.
-     * 
-     * @param name The name of the instrument
-     * @param centerFreq The center frequency
-     */
-    public FreqEvent(String name, int minFreq, int maxFreq) {
+    public FreqEvent(String name, int minFreq, int maxFreq,
+            int startTime, int endTime) {
         this.name = name;
         this.minFreq = minFreq;
         this.maxFreq = maxFreq;
         this.centerFreq = (minFreq+maxFreq)/2;
+        this.startTime = startTime;
+        this.midTime = (startTime+endTime)/2;
+        this.endTime = endTime;
     }
 
     /**
@@ -98,11 +94,36 @@ public final class FreqEvent {
 
     public String toString() {
         String result = "";
-        result = result + "Instrument: " + name
-                + "\nDescription: " + description
+        result = result + "Event: " + name
                 + "\nMaximum Frequency: " + maxFreq
                 + "\nCenter Frequency: " + centerFreq
-                + "\nMinimum Frequency: " + minFreq;
+                + "\nMinimum Frequency: " + minFreq
+                + "\nStart Time: " + startTime
+                + "\nEnd Time: " + endTime 
+                + "\nDescription: "+ description;
         return result;
+    }
+
+    public int getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(int startTime) {
+        this.startTime = startTime;
+    }
+
+    public int getEndTime() {
+        return endTime;
+    }
+    
+    public void setEndTime(int endTime) {
+        this.endTime = endTime;
+    }
+
+    /**
+     * @return the midTime
+     */
+    public int getMidTime() {
+        return midTime;
     }
 }
