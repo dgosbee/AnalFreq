@@ -117,9 +117,6 @@ public class UIControlFactory {
             String minFreqText = minFreqTextField.getText();
             String maxFreqText = maxFreqTextField.getText();
 
-            Config.debug("Inspecting text supplied by user: "
-                    + minFreqText
-                    + " " + maxFreqText);
             //The input string must be numbers only.  Cannot contain letters
             String regex = "\\D+";
             if (minFreqText.matches(regex) && maxFreqText.matches(regex)) {

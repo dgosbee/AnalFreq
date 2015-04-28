@@ -34,25 +34,19 @@ public class DataManager {
                         Integer.parseInt(startTime), Integer.parseInt(endTime));
 
         freqEvent.setDescription(description);
-
+         Main.addFreqEvent(freqEvent);
+        
         XYChart.Series series = new XYChart.Series();
         series.setName(freqEvent.getInstrument());
         XYChart.Data data = new XYChart.Data(freqEvent.getMidTime(), freqEvent.getCenterFreq());
         series.getData().add(data);
         Main.plotObject(series);
         Node node = data.getNode();
-
         double scaleX = freqEvent.getMidTime() - freqEvent.getStartTime();
         double scaleY = freqEvent.getCenterFreq() - freqEvent.getMinFreq();
-
         node.setScaleX(scaleX);
         node.setScaleY(scaleY);
-
         Tooltip.install(node, new Tooltip(freqEvent.toString()));
-
-        Config.debug("FreqEvent Max: " + freqEvent.getMaxFreq());
-        Config.debug("FreqEvent Min: " + freqEvent.getMinFreq());
-        Config.debug("Calculated scaleY: " + scaleY);
-
+       
     }
 }
