@@ -14,6 +14,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.chart.XYChart;
 import javafx.scene.image.Image;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -60,9 +61,11 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         stage.setTitle(Config.STAGE_TITLE);
-        HBox root = new HBox();
-        root.getChildren().addAll(chart, UIControlFactory.createUIControls());
-        stage.setScene(new Scene(root));
+        BorderPane borderpane = new BorderPane();
+        borderpane.setCenter(chart);
+        borderpane.setRight(UIControlFactory.createUIControls());
+
+        stage.setScene(new Scene(borderpane));
         stage.getIcons().add(new Image("icon/Asshole.jpg"));
         stage.show();
     }
