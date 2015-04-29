@@ -21,15 +21,14 @@ public class Config {
         }
     }
     
-    /**
-     * To be replaced later with dynamic values
-     */
-    public static final int MIN_SEC = 1;
-    public static final int MAX_SEC = 120;
-    public static final int STEP_SEC = 5;
+    
     public static final int MIN_FREQ = 0;
+    public static final int MIN_SEC = 0;
+    public static final int STEP = 5;
+   
     
     // zoom in = smaller MAX_FREQ
     public static int MAX_FREQ = 500;
     public static int STEP_FREQ = 20;
+    public static int END_TIME = 120;
 }

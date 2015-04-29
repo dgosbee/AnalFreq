@@ -12,10 +12,16 @@ import javafx.scene.layout.Region;
 
 public class DragZoomBubbleChart extends BubbleChart {
 
-    private int currMaxY = Config.MAX_FREQ;
     private Region plotArea;
+    private int currMaxFreq = Config.MAX_FREQ;
+    private int currEndTime = Config.END_TIME;
     private final DoubleProperty lastMouseX = new SimpleDoubleProperty();
     private final DoubleProperty lastMouseY = new SimpleDoubleProperty();
+    private boolean shiftPressed = false;
+
+    public void setShiftPressed(boolean b) {
+        shiftPressed = b;
+    }
 
     public DragZoomBubbleChart(NumberAxis xAxis, NumberAxis yAxis) {
 
@@ -41,39 +47,73 @@ public class DragZoomBubbleChart extends BubbleChart {
         });
 
         setOnScroll((ScrollEvent event) -> {
+
+            if (event.getDeltaX() > 0) {
+                zoomInTime();
+            }
+            if (event.getDeltaX() < 0) {
+                zoomOutTime();
+            }
+
             if (event.getDeltaY() > 0) {
-                zoomIn();
-            } else {
-                zoomOut();
+                zoomInFreq();
+            }
+            if (event.getDeltaY() < 0) {
+                zoomOutFreq();
             }
         });
-
     }
 
-    private void zoomIn() {
-        int newMaxY = (int) (currMaxY * .5);
-        if (newMaxY <= 20) {
-            newMaxY = 20;
+    private void zoomInFreq() {
+        int newMaxFreq = (int) (currMaxFreq * .5);
+        if (newMaxFreq <= 20) {
+            newMaxFreq = 20;
         }
-        currMaxY = newMaxY;
+        currMaxFreq = newMaxFreq;
         NumberAxis na = (NumberAxis) this.getYAxis();
-        if (newMaxY <= na.getLowerBound()) {
-            newMaxY = (int) na.getLowerBound() + Config.STEP_FREQ;
+        if (newMaxFreq <= na.getLowerBound()) {
+            newMaxFreq = (int) na.getLowerBound() + Config.STEP_FREQ;
         }
-        na.setUpperBound(newMaxY);
+        na.setUpperBound(newMaxFreq);
     }
 
-    private void zoomOut() {
-        int newMaxY = (int) (currMaxY * 1.5);
-        if (newMaxY >= 20000) {
-            newMaxY = 20000;
+    private void zoomOutFreq() {
+        int newMaxFreq = (int) (currMaxFreq * 1.5);
+        if (newMaxFreq >= 20000) {
+            newMaxFreq = 20000;
         }
-        currMaxY = newMaxY;
+        currMaxFreq = newMaxFreq;
         NumberAxis na = (NumberAxis) this.getYAxis();
-        if (newMaxY <= na.getLowerBound()) {
-            newMaxY = (int) na.getLowerBound() + Config.STEP_FREQ;
+        if (newMaxFreq <= na.getLowerBound()) {
+            newMaxFreq = (int) na.getLowerBound() + Config.STEP_FREQ;
         }
-        na.setUpperBound(newMaxY);
+        na.setUpperBound(newMaxFreq);
+    }
+
+    private void zoomInTime() {
+        int newEndTime = (int) (currEndTime * .5);
+        if (newEndTime <= 2) {
+            newEndTime = 2;
+        }
+        currEndTime = newEndTime;
+        NumberAxis na = (NumberAxis) this.getXAxis();
+        if (newEndTime <= na.getLowerBound()) {
+            newEndTime = (int) na.getLowerBound() + Config.STEP_FREQ;
+        }
+        na.setUpperBound(newEndTime);
+    }
+
+    private void zoomOutTime() {
+        int newEndTime = (int) (currEndTime * 1.5);
+        if (newEndTime >= 500) {
+            newEndTime = 500;
+        }
+        currEndTime = newEndTime;
+        NumberAxis na = (NumberAxis) this.getXAxis();
+        if (newEndTime <= na.getLowerBound()) {
+            newEndTime = (int) na.getLowerBound() + Config.STEP_FREQ;
+        }
+        na.setUpperBound(newEndTime);
     }
 
     private void moveAxis(NumberAxis axis, double mouseLocation,

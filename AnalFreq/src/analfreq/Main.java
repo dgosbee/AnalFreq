@@ -14,6 +14,8 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.chart.XYChart;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Rectangle;
@@ -66,6 +68,19 @@ public class Main extends Application {
         borderpane.setRight(UIControlFactory.createUIControls());
         stage.setScene(new Scene(borderpane));
         stage.getIcons().add(new Image("icon/Asshole.jpg"));
+
+        stage.getScene().setOnKeyPressed((KeyEvent event) -> {
+            if (event.getCode().equals(KeyCode.SHIFT)) {
+                chart.setShiftPressed(true);
+            }
+        });
+
+        stage.getScene().setOnKeyReleased((KeyEvent event) -> {
+            if (event.getCode().equals(KeyCode.SHIFT)) {
+                chart.setShiftPressed(false);
+            }
+        });
+
         stage.show();
     }
 

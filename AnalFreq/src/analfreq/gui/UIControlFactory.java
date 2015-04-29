@@ -4,19 +4,15 @@ import analfreq.config.Config;
 import analfreq.datamanager.DataManager;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 
 public class UIControlFactory {
 
-    // GUI components for "Create New Freq Event"
     private static Label createNewFreqEventLabel;
     private static Label minFreqLabel;
     private static Label maxFreqLabel;
@@ -48,7 +44,6 @@ public class UIControlFactory {
     }
 
     private static void initControls(){
-        
         createNewFreqEventLabel = new Label("New Freq Event");
         createNewFreqEventLabel.setFont(new Font(30));
         minFreqLabel = new Label("Minimum Freq:");
@@ -105,14 +100,11 @@ public class UIControlFactory {
     }
             
     public static GridPane createUIControls(){
-        
         initControls();
-        
         GridPane gridPane = new GridPane();
-        gridPane.setPadding(new Insets(25.0));
-        gridPane.setHgap(5.0); 
+        gridPane.setPadding(new Insets(5.0));
+        gridPane.setHgap(4.0); 
         gridPane.setVgap(4.0);
-        
         // Node, col, row (colspan,rowspan)
         gridPane.add(createNewFreqEventLabel,0,0,2,1);
         gridPane.add(eventNameLabel,0,1);
@@ -130,10 +122,4 @@ public class UIControlFactory {
         gridPane.add(buttonControls,0,7,2,1);
         return gridPane;      
     }
-    
-    
-
-   
-   
-
 }
