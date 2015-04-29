@@ -3,11 +3,14 @@ package analfreq.gui;
 import analfreq.config.Config;
 import analfreq.datamanager.DataManager;
 import javafx.event.ActionEvent;
+import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 
@@ -15,12 +18,12 @@ public class UIControlFactory {
 
     // GUI components for "Create New Freq Event"
     private static Label createNewFreqEventLabel;
-    private static Label minFreq;
-    private static Label maxFreq;
-    private static Label startTime;
-    private static Label endTime;
-    private static Label eventName;
-    private static Label eventDescription;
+    private static Label minFreqLabel;
+    private static Label maxFreqLabel;
+    private static Label startTimeLabel;
+    private static Label endTimeLabel;
+    private static Label eventNameLabel;
+    private static Label eventDescriptionLabel;
     private static HBox eventTypeControls;
     private static HBox minFreqControls;
     private static HBox maxFreqControls;
@@ -44,70 +47,22 @@ public class UIControlFactory {
         eventDescriptionTextField.clear();
     }
 
-    /**
-     * Creates the UI controls that appear on the right side of the screen.
-     * Controls are returned on a FlowPane, which can then be placed inside an
-     * appropriate layout manager.
-     *
-     * @return A FlowPane containing the UI controls
-     */
-    public static FlowPane createUIControls() {
-        FlowPane UIControls = new FlowPane(Orientation.VERTICAL);
-        buildNewFreqEventPanel();
-        UIControls.getChildren().add(createNewFreqEventLabel);
-        UIControls.getChildren().add(eventTypeControls);
-        UIControls.getChildren().add(minFreqControls);
-        UIControls.getChildren().add(maxFreqControls);
-        UIControls.getChildren().add(startTimeControls);
-        UIControls.getChildren().add(endTimeControls);
-        UIControls.getChildren().add(eventDescriptionControls);
-        UIControls.getChildren().add(buttonControls);
-        return UIControls;
-    }
-
-    /**
-     * Private convenience method for creating the GUI components of the "Create
-     * New Event" portion of the GUI. This code is still pretty gnarly and is in
-     * need of a good cleanup.
-     */
-    private static void buildNewFreqEventPanel() {
+    private static void initControls(){
+        
         createNewFreqEventLabel = new Label("New Freq Event");
         createNewFreqEventLabel.setFont(new Font(30));
-        
-        minFreq = new Label("Min Freq:");
+        minFreqLabel = new Label("Minimum Freq:");
         minFreqTextField = new TextField();
-        minFreqControls = new HBox();
-        minFreqControls.getChildren().addAll(minFreq, minFreqTextField);
-        minFreqControls.setSpacing(10);
-        
-        maxFreq = new Label("Max Freq:");
+        maxFreqLabel = new Label("Maximum Freq:");
         maxFreqTextField = new TextField();
-        maxFreqControls = new HBox();
-        maxFreqControls.getChildren().addAll(maxFreq, maxFreqTextField);
-        maxFreqControls.setSpacing(10);
-        
-        startTime = new Label("Start Time:");
+        startTimeLabel = new Label("Starting Time:");
         startTimeTextField = new TextField();
-        startTimeControls = new HBox();
-        startTimeControls.getChildren().addAll(startTime, startTimeTextField);
-        startTimeControls.setSpacing(10);
-        
-        endTime = new Label("End Time:");
+        endTimeLabel = new Label("Ending Time:");
         endTimeTextField = new TextField();
-        endTimeControls = new HBox();
-        endTimeControls.getChildren().addAll(endTime, endTimeTextField);
-        endTimeControls.setSpacing(10);
-     
-        eventName = new Label("Event Name:");
+        eventNameLabel = new Label("Event Name:");
         eventNameTextField = new TextField();
-        eventTypeControls = new HBox();
-        eventTypeControls.getChildren().addAll(eventName, eventNameTextField);
-        eventTypeControls.setSpacing(10);
-        eventDescription = new Label("Event Description:");
+        eventDescriptionLabel = new Label("Description:");
         eventDescriptionTextField = new TextField();
-        eventDescriptionControls = new HBox();
-        eventDescriptionControls.getChildren().addAll(eventDescription,eventDescriptionTextField);
-        eventDescriptionControls.setSpacing(10);
 
         // "Submit" button creation
         Button submitButton = new Button();
@@ -131,7 +86,7 @@ public class UIControlFactory {
                         startTimeTextField.getText(),
                         endTimeTextField.getText(),
                         eventDescriptionTextField.getText());
-                
+
                 clearTextField();
             }
         });
@@ -143,9 +98,42 @@ public class UIControlFactory {
             Config.debug("Reset");
             clearTextField();
         });
-        
+
         buttonControls = new HBox();
         buttonControls.getChildren().addAll(submitButton, resetButton);
         buttonControls.setSpacing(10);
     }
+            
+    public static GridPane createUIControls(){
+        
+        initControls();
+        
+        GridPane gridPane = new GridPane();
+        gridPane.setPadding(new Insets(25.0));
+        gridPane.setHgap(5.0); 
+        gridPane.setVgap(4.0);
+        
+        // Node, col, row (colspan,rowspan)
+        gridPane.add(createNewFreqEventLabel,0,0,2,1);
+        gridPane.add(eventNameLabel,0,1);
+        gridPane.add(eventNameTextField,1,1);     
+        gridPane.add(minFreqLabel,0,2);
+        gridPane.add(minFreqTextField,1,2); 
+        gridPane.add(maxFreqLabel,0,3);
+        gridPane.add(maxFreqTextField,1,3);    
+        gridPane.add(startTimeLabel,0,4);
+        gridPane.add(startTimeTextField,1,4); 
+        gridPane.add(endTimeLabel,0,5);
+        gridPane.add(endTimeTextField,1,5); 
+        gridPane.add(eventDescriptionLabel,0,6);
+        gridPane.add(eventDescriptionTextField,1,6);  
+        gridPane.add(buttonControls,0,7,2,1);
+        return gridPane;      
+    }
+    
+    
+
+   
+   
+
 }

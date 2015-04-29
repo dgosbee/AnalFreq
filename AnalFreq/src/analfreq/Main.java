@@ -64,7 +64,6 @@ public class Main extends Application {
         BorderPane borderpane = new BorderPane();
         borderpane.setCenter(chart);
         borderpane.setRight(UIControlFactory.createUIControls());
-
         stage.setScene(new Scene(borderpane));
         stage.getIcons().add(new Image("icon/Asshole.jpg"));
         stage.show();
