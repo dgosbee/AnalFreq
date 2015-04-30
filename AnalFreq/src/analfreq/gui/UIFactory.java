@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
@@ -61,11 +62,30 @@ public class UIFactory {
         rootNode.getStylesheets().add("css/Skin.css");
         rootNode.setCenter(chart);
         rootNode.setRight(UIFactory.createUIControls());
+        
+        
         menuBar = new MenuBar();
         Menu menuFile = new Menu("File");
-        MenuItem save = new MenuItem("Save");
-        menuFile.getItems().add(save);
-        menuBar.getMenus().addAll(menuFile);
+        menuFile.getItems().add(new MenuItem("New"));
+        menuFile.getItems().add(new MenuItem("Open"));
+        menuFile.getItems().add(new MenuItem("Save"));
+        menuFile.getItems().add(new MenuItem("Save As"));
+        menuFile.getItems().add(new SeparatorMenuItem());
+        menuFile.getItems().add(new MenuItem("Exit"));
+        menuBar.getMenus().add(menuFile);
+        
+        Menu examplesMenu = new Menu("Settings");
+        examplesMenu.getItems().add(new MenuItem("Preferences"));
+        examplesMenu.getItems().add(new MenuItem("Change Theme"));
+        menuBar.getMenus().add(examplesMenu);
+        
+        Menu helpMenu = new Menu("Help");
+        helpMenu.getItems().add(new MenuItem("Help Contents"));
+        helpMenu.getItems().add(new MenuItem("Check for Updates"));
+        helpMenu.getItems().add(new MenuItem("About"));
+        menuBar.getMenus().add(helpMenu);
+        
+             
         rootNode.setTop(menuBar);
         stage.setTitle(Config.STAGE_TITLE);
         stage.setScene(new Scene(rootNode));

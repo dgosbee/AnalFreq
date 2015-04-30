@@ -13,8 +13,6 @@
      -fx-background-color: #383838;
 }
 
-// Seems to be missing something, because the background color
-// is still showing some white when this is applied
 .menu-item {
      -fx-background-color: #383838;
      -fx-text-fill: #e8e8e8;
@@ -24,10 +22,23 @@
 .label{
     -fx-text-fill: #e8e8e8;
     -fx-font-weight: bold;
-    -fx-effect: dropshadow( one-pass-box , black , 8 , 0.0 , 2 , 0 );
-    -fx-effect: innershadow( gaussian, greenyellow, 8, 0.0, 2, 0);
+    //-fx-effect: dropshadow( one-pass-box , black , 8 , 0.0 , 2 , 0 );
+    //-fx-effect: innershadow( gaussian, greenyellow, 8, 0.0, 2, 0);
 }
 .button{
+    
+    
+    -fx-background-color:
+        linear-gradient(#f0ff35, #a9ff00),
+        radial-gradient(center 50% -40%, radius 200%, #b8ee36 45%, #80c800 50%);
+    -fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: #395306;
+  
+    
+    
+    /*
     -fx-text-fill: #FFFFFF; 
     -fx-background-color: #4b4b4b;
     -fx-border-radius: 35;
@@ -36,7 +47,13 @@
     -fx-font-weight: bold;
     -fx-effect: dropshadow( one-pass-box , black , 8 , 0.0 , 2 , 0 );
     -fx-effect: innershadow( gaussian, greenyellow, 8, 0.0, 2, 0);
+*/
+}
 
+.button:hover {
+    -fx-background-color: #9ACD32;
+    
+    
 }
 
 .axis {
@@ -48,7 +65,9 @@
 }
  
 .axis-label {
-   -fx-text-fill: #462300; 
+   -fx-text-fill: #e8e8e8; 
+       -fx-effect: dropshadow( one-pass-box , black , 8 , 0.0 , 2 , 0 );
+    -fx-effect: innershadow( gaussian, greenyellow, 8, 0.0, 2, 0);
 }
  
 .axis-tick-mark {
@@ -57,4 +76,33 @@
 }
 .axis-minor-tick-mark {
     -fx-stroke: #859656;
+}
+
+
+.chart {
+    
+}
+
+.chart-title{
+    
+}
+
+.chart-content {
+    
+    
+}
+
+.chart-legend {
+   -fx-background-color: #383838;
+   
+}
+ 
+.chart-legend-item-symbol{
+    //-fx-effect: dropshadow( null , null , 0 , 0.0 , 0 , 0 );
+    //-fx-effect: innershadow( null , null , 0 , 0.0 , 0 , 0 );
+   
+}
+ 
+.chart-legend-item{
+    
 }
