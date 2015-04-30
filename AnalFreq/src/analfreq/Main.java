@@ -24,7 +24,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    private VBox rootNode;
+    private BorderPane rootNode;
     private MenuBar menuBar;
 
     private static final List<FreqEvent> allFreqEvents = new ArrayList<>();
@@ -76,22 +76,19 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         createRootNode();
-
         initStage(stage, new Scene(rootNode));
-
     }
 
     private void createRootNode() {
-        rootNode = new VBox();
-        BorderPane borderPane = new BorderPane();
+        rootNode = new BorderPane();
         rootNode.getStylesheets().add("css/Skin.css");
-        borderPane.setCenter(chart);
-        borderPane.setRight(UIControlFactory.createUIControls());
+        rootNode.setCenter(chart);
+        rootNode.setRight(UIControlFactory.createUIControls());
         initMenuBar();
-        rootNode.getChildren().add(menuBar);
-        rootNode.getChildren().add(borderPane);
+        rootNode.setTop(menuBar);
     }
 
+    
     private void initMenuBar(){
         menuBar = new MenuBar();
         Menu menuFile = new Menu("File");
@@ -99,6 +96,7 @@ public class Main extends Application {
         menuFile.getItems().add(save);
         menuBar.getMenus().addAll(menuFile);
     }
+    
     
     private void initStage(Stage stage, Scene scene) {
         stage.setTitle(Config.STAGE_TITLE);
@@ -115,6 +113,7 @@ public class Main extends Application {
                 chart.setShiftPressed(false);
             }
         });
+        
         stage.show();
     }
 
