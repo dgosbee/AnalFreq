@@ -2,6 +2,7 @@ package analfreq.datamanager;
 
 import analfreq.Main;
 import analfreq.freqevent.FreqEvent;
+import analfreq.gui.UIFactory;
 import javafx.scene.Node;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Tooltip;
@@ -37,7 +38,7 @@ public class DataManager {
         series.setName(freqEvent.getInstrument());
         XYChart.Data data = new XYChart.Data(freqEvent.getMidTime(), freqEvent.getCenterFreq());
         series.getData().add(data);
-        Main.plotObject(series);
+        UIFactory.plotObject(series);
         Node node = data.getNode();
         double scaleX = freqEvent.getMidTime() - freqEvent.getStartTime();
         double scaleY = freqEvent.getCenterFreq() - freqEvent.getMinFreq();

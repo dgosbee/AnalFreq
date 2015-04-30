@@ -4,15 +4,33 @@ import analfreq.config.Config;
 import analfreq.datamanager.DataManager;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
-public class UIControlFactory {
+public class UIFactory {
 
+    // CHART AND MENU
+    private static BorderPane rootNode;
+    private static MenuBar menuBar;
+    private static final DragZoomBubbleChart chart
+            = DragZoomBubbleChartFactory.createBubbleChart();
+    
+
+    // PROPERTY EDITOR
     private static Label createNewFreqEventLabel;
     private static Label minFreqLabel;
     private static Label maxFreqLabel;
@@ -33,7 +51,41 @@ public class UIControlFactory {
     private static TextField endTimeTextField;
     private static TextField eventNameTextField;
     private static TextField eventDescriptionTextField;
+ 
+     public static void plotObject(XYChart.Series series) {
+        chart.getData().addAll(series);
+    }
 
+    public static void initStage(Stage stage ){
+         rootNode = new BorderPane();
+        rootNode.getStylesheets().add("css/Skin.css");
+        rootNode.setCenter(chart);
+        rootNode.setRight(UIFactory.createUIControls());
+        menuBar = new MenuBar();
+        Menu menuFile = new Menu("File");
+        MenuItem save = new MenuItem("Save");
+        menuFile.getItems().add(save);
+        menuBar.getMenus().addAll(menuFile);
+        rootNode.setTop(menuBar);
+        stage.setTitle(Config.STAGE_TITLE);
+        stage.setScene(new Scene(rootNode));
+        stage.getIcons().add(new Image("icon/icon.png"));
+        stage.getScene().setOnKeyPressed((KeyEvent event) -> {
+            if (event.getCode().equals(KeyCode.SHIFT)) {
+                chart.setShiftPressed(true);
+            }
+        });
+
+        stage.getScene().setOnKeyReleased((KeyEvent event) -> {
+            if (event.getCode().equals(KeyCode.SHIFT)) {
+                chart.setShiftPressed(false);
+            }
+        });
+
+        stage.show();
+        
+    }
+    
     private static void clearTextField() {
         eventNameTextField.clear();
         minFreqTextField.clear();
