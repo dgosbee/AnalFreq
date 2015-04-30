@@ -64,10 +64,11 @@ public class Main extends Application {
     public void start(Stage stage) {
         stage.setTitle(Config.STAGE_TITLE);
         BorderPane borderpane = new BorderPane();
+        borderpane.getStylesheets().add("css/Skin.css");
         borderpane.setCenter(chart);
         borderpane.setRight(UIControlFactory.createUIControls());
         stage.setScene(new Scene(borderpane));
-        stage.getIcons().add(new Image("icon/Asshole.jpg"));
+        stage.getIcons().add(new Image("icon/icon.png"));
 
         stage.getScene().setOnKeyPressed((KeyEvent event) -> {
             if (event.getCode().equals(KeyCode.SHIFT)) {
