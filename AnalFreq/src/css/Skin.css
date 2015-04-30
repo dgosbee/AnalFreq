@@ -22,3 +22,23 @@
     -fx-effect: innershadow( gaussian, greenyellow, 8, 0.0, 2, 0);
 
 }
+
+.axis {
+    -fx-font-size: 1.4em;    
+    -fx-tick-label-fill: #e8e8e8;
+    -fx-font-family: Tahoma;
+    -fx-tick-length: 20;
+    -fx-minor-tick-length: 10;
+}
+ 
+.axis-label {
+   -fx-text-fill: #462300; 
+}
+ 
+.axis-tick-mark {
+    -fx-stroke: #637040;
+    -fx-stroke-width: 2; 
+}
+.axis-minor-tick-mark {
+    -fx-stroke: #859656;
+}
