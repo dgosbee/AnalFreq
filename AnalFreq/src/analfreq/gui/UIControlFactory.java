@@ -102,7 +102,7 @@ public class UIControlFactory {
     public static GridPane createUIControls(){
         initControls();
         GridPane gridPane = new GridPane();
-        gridPane.setPadding(new Insets(5.0));
+        gridPane.setPadding(new Insets(10.0));
         gridPane.setHgap(4.0); 
         gridPane.setVgap(4.0);
         // Node, col, row (colspan,rowspan)

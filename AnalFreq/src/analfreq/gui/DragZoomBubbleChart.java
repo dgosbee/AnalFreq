@@ -12,7 +12,9 @@ import javafx.scene.layout.Region;
 
 public class DragZoomBubbleChart extends BubbleChart {
 
-    private Region plotArea;
+    private final NumberAxis xAxis;
+    private final NumberAxis yAxis;
+    private final Region plotArea;
     private int currMaxFreq = Config.MAX_FREQ;
     private int currEndTime = Config.END_TIME;
     private final DoubleProperty lastMouseX = new SimpleDoubleProperty();
@@ -24,10 +26,15 @@ public class DragZoomBubbleChart extends BubbleChart {
     }
 
     public DragZoomBubbleChart(NumberAxis xAxis, NumberAxis yAxis) {
-
         super(xAxis, yAxis);
+        this.xAxis = xAxis;
+        this.yAxis = yAxis;
         plotArea = (Region) lookup(".chart-plot-background");
+        initMouseHandlers();
+    }
 
+    private void initMouseHandlers() {
+        
         setOnMousePressed((MouseEvent event) -> {
             final double x = event.getX();
             final double y = event.getY();
@@ -50,15 +57,13 @@ public class DragZoomBubbleChart extends BubbleChart {
 
             if (event.getDeltaX() > 0) {
                 zoomInTime();
-            }
-            if (event.getDeltaX() < 0) {
+            } else if (event.getDeltaX() < 0) {
                 zoomOutTime();
             }
 
             if (event.getDeltaY() > 0) {
                 zoomInFreq();
-            }
-            if (event.getDeltaY() < 0) {
+            } else if (event.getDeltaY() < 0) {
                 zoomOutFreq();
             }
         });
