@@ -24,48 +24,27 @@ import javafx.stage.Stage;
 
 public class UIFactory {
 
-    // CHART AND MENU
-    private static BorderPane rootNode;
-    private static MenuBar menuBar;
     private static final DragZoomBubbleChart chart
             = DragZoomBubbleChartFactory.createBubbleChart();
-    
+    private static BorderPane rootNode;
+    private static MenuBar menuBar;
+    private static Menu menuFile, examplesMenu, helpMenu;
+    private static Label createNewFreqEventLabel, minFreqLabel, maxFreqLabel,
+            startTimeLabel, endTimeLabel, eventNameLabel, eventDescriptionLabel;
 
-    // PROPERTY EDITOR
-    private static Label createNewFreqEventLabel;
-    private static Label minFreqLabel;
-    private static Label maxFreqLabel;
-    private static Label startTimeLabel;
-    private static Label endTimeLabel;
-    private static Label eventNameLabel;
-    private static Label eventDescriptionLabel;
-    private static HBox eventTypeControls;
-    private static HBox minFreqControls;
-    private static HBox maxFreqControls;
-    private static HBox startTimeControls;
-    private static HBox endTimeControls;
-    private static HBox eventDescriptionControls;
-    private static HBox buttonControls;
-    private static TextField minFreqTextField;
-    private static TextField maxFreqTextField;
-    private static TextField startTimeTextField;
-    private static TextField endTimeTextField;
-    private static TextField eventNameTextField;
-    private static TextField eventDescriptionTextField;
- 
-     public static void plotObject(XYChart.Series series) {
+    private static HBox eventTypeControls, minFreqControls, maxFreqControls,
+            startTimeControls, endTimeControls, eventDescriptionControls, buttonControls;
+
+    private static TextField minFreqTextField, maxFreqTextField, startTimeTextField,
+            endTimeTextField, eventNameTextField, eventDescriptionTextField;
+
+    public static void plotObject(XYChart.Series series) {
         chart.getData().addAll(series);
     }
 
-    public static void initStage(Stage stage ){
-         rootNode = new BorderPane();
-        rootNode.getStylesheets().add("css/Skin.css");
-        rootNode.setCenter(chart);
-        rootNode.setRight(UIFactory.createUIControls());
-        
-        
+    private static void initMenus() {
         menuBar = new MenuBar();
-        Menu menuFile = new Menu("File");
+        menuFile = new Menu("File");
         menuFile.getItems().add(new MenuItem("New"));
         menuFile.getItems().add(new MenuItem("Open"));
         menuFile.getItems().add(new MenuItem("Save"));
@@ -73,23 +52,33 @@ public class UIFactory {
         menuFile.getItems().add(new SeparatorMenuItem());
         menuFile.getItems().add(new MenuItem("Exit"));
         menuBar.getMenus().add(menuFile);
-        
-        Menu examplesMenu = new Menu("Settings");
+        examplesMenu = new Menu("Settings");
         examplesMenu.getItems().add(new MenuItem("Preferences"));
         examplesMenu.getItems().add(new MenuItem("Change Theme"));
         menuBar.getMenus().add(examplesMenu);
-        
-        Menu helpMenu = new Menu("Help");
+        helpMenu = new Menu("Help");
         helpMenu.getItems().add(new MenuItem("Help Contents"));
         helpMenu.getItems().add(new MenuItem("Check for Updates"));
         helpMenu.getItems().add(new MenuItem("About"));
         menuBar.getMenus().add(helpMenu);
-        
-             
+    }
+
+    private static void initRootNode() {
+        rootNode = new BorderPane();
+        rootNode.getStylesheets().add("css/Skin.css");
+        rootNode.setCenter(chart);
+        rootNode.setRight(UIFactory.createUIControls());
         rootNode.setTop(menuBar);
+    }
+
+    public static void initStage(Stage stage) {
+        initMenus();
+        initRootNode();
+        
         stage.setTitle(Config.STAGE_TITLE);
         stage.setScene(new Scene(rootNode));
         stage.getIcons().add(new Image("icon/icon.png"));
+
         stage.getScene().setOnKeyPressed((KeyEvent event) -> {
             if (event.getCode().equals(KeyCode.SHIFT)) {
                 chart.setShiftPressed(true);
@@ -103,10 +92,10 @@ public class UIFactory {
         });
 
         stage.show();
-        
+
     }
-    
-    private static void clearTextField() {
+
+    private static void clearTextFields() {
         eventNameTextField.clear();
         minFreqTextField.clear();
         maxFreqTextField.clear();
@@ -115,8 +104,8 @@ public class UIFactory {
         eventDescriptionTextField.clear();
     }
 
-    private static void initControls(){
-        createNewFreqEventLabel = new Label("New Freq Event");
+    private static void initUIControls() {
+        createNewFreqEventLabel = new Label("Freq Event Editor");
         createNewFreqEventLabel.setFont(new Font(23));
         minFreqLabel = new Label("Minimum Freq:");
         minFreqTextField = new TextField();
@@ -154,7 +143,7 @@ public class UIFactory {
                         endTimeTextField.getText(),
                         eventDescriptionTextField.getText());
 
-                clearTextField();
+                clearTextFields();
             }
         });
 
@@ -163,35 +152,35 @@ public class UIFactory {
         resetButton.setText("Reset");
         resetButton.setOnAction((ActionEvent event) -> {
             Config.debug("Reset");
-            clearTextField();
+            clearTextFields();
         });
 
         buttonControls = new HBox();
         buttonControls.getChildren().addAll(submitButton, resetButton);
         buttonControls.setSpacing(10);
     }
-            
-    public static GridPane createUIControls(){
-        initControls();
+
+    public static GridPane createUIControls() {
+        initUIControls();
         GridPane gridPane = new GridPane();
         gridPane.setPadding(new Insets(10.0));
-        gridPane.setHgap(4.0); 
+        gridPane.setHgap(4.0);
         gridPane.setVgap(4.0);
         // Node, col, row (colspan,rowspan)
-        gridPane.add(createNewFreqEventLabel,0,0,2,1);
-        gridPane.add(eventNameLabel,0,1);
-        gridPane.add(eventNameTextField,1,1);     
-        gridPane.add(minFreqLabel,0,2);
-        gridPane.add(minFreqTextField,1,2); 
-        gridPane.add(maxFreqLabel,0,3);
-        gridPane.add(maxFreqTextField,1,3);    
-        gridPane.add(startTimeLabel,0,4);
-        gridPane.add(startTimeTextField,1,4); 
-        gridPane.add(endTimeLabel,0,5);
-        gridPane.add(endTimeTextField,1,5); 
-        gridPane.add(eventDescriptionLabel,0,6);
-        gridPane.add(eventDescriptionTextField,1,6);  
-        gridPane.add(buttonControls,0,7,2,1);
-        return gridPane;      
+        gridPane.add(createNewFreqEventLabel, 0, 0, 2, 1);
+        gridPane.add(eventNameLabel, 0, 1);
+        gridPane.add(eventNameTextField, 1, 1);
+        gridPane.add(minFreqLabel, 0, 2);
+        gridPane.add(minFreqTextField, 1, 2);
+        gridPane.add(maxFreqLabel, 0, 3);
+        gridPane.add(maxFreqTextField, 1, 3);
+        gridPane.add(startTimeLabel, 0, 4);
+        gridPane.add(startTimeTextField, 1, 4);
+        gridPane.add(endTimeLabel, 0, 5);
+        gridPane.add(endTimeTextField, 1, 5);
+        gridPane.add(eventDescriptionLabel, 0, 6);
+        gridPane.add(eventDescriptionTextField, 1, 6);
+        gridPane.add(buttonControls, 0, 7, 2, 1);
+        return gridPane;
     }
 }
