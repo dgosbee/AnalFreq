@@ -7,15 +7,9 @@ package analfreq.freqevent;
  */
 public final class FreqEvent {
 
-    private String name;
-    private int minFreq;  
-    private int maxFreq;
-    private int centerFreq;
-    private int startTime;
-    private int midTime;
-    private int endTime;
-    private String description;
-
+    private String name,description;
+    private int minFreq, maxFreq, centerFreq, startTime, midTime, endTime;
+ 
     public FreqEvent(String name, int minFreq, int maxFreq,
             int startTime, int endTime) {
         this.name = name;
@@ -27,16 +21,10 @@ public final class FreqEvent {
         this.endTime = endTime;
     }
 
-    /**
-     * @return the minFreq
-     */
     public int getMinFreq() {
         return minFreq;
     }
 
-    /**
-     * @param startFreq the minFreq to set
-     */
     public void setMinFreq(int startFreq) {
         this.minFreq = startFreq;
     }
@@ -50,44 +38,26 @@ public final class FreqEvent {
         return centerFreq;
     }
 
-    /**
-     * @return the maxFreq
-     */
     public int getMaxFreq() {
         return maxFreq;
     }
 
-    /**
-     * @param endFreq the maxFreq to set
-     */
     public void setMaxFreq(int endFreq) {
         this.maxFreq = endFreq;
     }
 
-    /**
-     * @return the name
-     */
     public String getInstrument() {
         return name;
     }
 
-    /**
-     * @param instrument the name to set
-     */
     public void setInstrument(String instrument) {
         this.name = instrument;
     }
 
-    /**
-     * @return the description
-     */
     public String getDescription() {
         return description;
     }
 
-    /**
-     * @param description the description to set
-     */
     public void setDescription(String description) {
         this.description = description;
     }
@@ -120,9 +90,6 @@ public final class FreqEvent {
         this.endTime = endTime;
     }
 
-    /**
-     * @return the midTime
-     */
     public int getMidTime() {
         return midTime;
     }

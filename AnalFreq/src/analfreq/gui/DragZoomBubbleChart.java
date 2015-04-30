@@ -12,8 +12,7 @@ import javafx.scene.layout.Region;
 
 public class DragZoomBubbleChart extends BubbleChart {
 
-    private final NumberAxis xAxis;
-    private final NumberAxis yAxis;
+    private final NumberAxis xAxis, yAxis;
     private final Region plotArea;
     private int currMaxFreq = Config.MAX_FREQ;
     private int currEndTime = Config.END_TIME;

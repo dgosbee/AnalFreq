@@ -1,7 +1,7 @@
 package analfreq.freqevent;
 
 /**
- * This class represents two frequency events that mask each other. 
+ * This class represents two frequency events that mask one another. 
  */
 public class MaskEvent {
  
