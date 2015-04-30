@@ -24,8 +24,6 @@ public class Config {
     public static final int MIN_FREQ = 0;
     public static final int MIN_SEC = 0;
     public static final int STEP = 2;
-   
-    // zoom in = smaller MAX_FREQ
     public static int MAX_FREQ = 500;
     public static int STEP_FREQ = 20;
     public static int END_TIME = 120;

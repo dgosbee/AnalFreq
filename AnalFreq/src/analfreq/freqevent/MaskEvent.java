@@ -1,12 +1,11 @@
 package analfreq.freqevent;
 
-
 /**
  * This class represents two frequency events that mask each other. 
  */
 public class MaskEvent {
  
-    private FreqEvent[] freqEvents = new FreqEvent[2];
+    private final FreqEvent[] freqEvents = new FreqEvent[2];
     
     public MaskEvent(FreqEvent event1, FreqEvent event2){
         freqEvents[0] = event1;

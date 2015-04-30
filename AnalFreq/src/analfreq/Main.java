@@ -7,9 +7,7 @@ import analfreq.gui.DragZoomBubbleChartFactory;
 import analfreq.gui.DragZoomBubbleChart;
 import analfreq.gui.UIControlFactory;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.chart.XYChart;
@@ -17,7 +15,6 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 

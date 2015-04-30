@@ -1,13 +1,10 @@
 package analfreq.datamanager;
 
 import analfreq.Main;
-import analfreq.config.Config;
 import analfreq.freqevent.FreqEvent;
-import javafx.beans.property.DoubleProperty;
 import javafx.scene.Node;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Tooltip;
-import javafx.scene.shape.Circle;
 
 /**
  * This class forms the communication mechanism between the input GUI and the
@@ -46,7 +43,6 @@ public class DataManager {
         double scaleY = freqEvent.getCenterFreq() - freqEvent.getMinFreq();
         node.setScaleX(scaleX);
         node.setScaleY(scaleY);
-        Tooltip.install(node, new Tooltip(freqEvent.toString()));
-       
+        Tooltip.install(node, new Tooltip(freqEvent.toString())); 
     }
 }
