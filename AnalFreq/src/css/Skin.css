@@ -1,7 +1,20 @@
+// JavaFX CSS Reference Guide: https://docs.oracle.com/javase/8/javafx/api/javafx/scene/doc-files/cssref.html
+
 .root{
     -fx-background-color: #383838;
     -fx-cursor:hand;
 }
+
+.menu-bar {
+     -fx-background-color: #383838;
+}
+
+// Seems to be missing something, because the background color
+// is still showing some white when this is applied
+.menu-item {
+     -fx-background-color: #383838;
+}
+
 .label{
     -fx-text-fill: #e8e8e8;
     -fx-font-weight: bold;

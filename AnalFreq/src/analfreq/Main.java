@@ -11,29 +11,45 @@ import java.util.List;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class Main extends Application {
+
+    private VBox rootNode;
+    private MenuBar menuBar;
 
     private static final List<FreqEvent> allFreqEvents = new ArrayList<>();
 
     private static final DragZoomBubbleChart chart
             = DragZoomBubbleChartFactory.createBubbleChart();
 
+    /**
+     * This functionality probably belongs in a different class.
+     */
     public static void plotObject(XYChart.Series series) {
         chart.getData().addAll(series);
     }
 
+    /**
+     * This functionality probably belongs in a different class.
+     */
     public static void addFreqEvent(FreqEvent freqEvent) {
         allFreqEvents.add(freqEvent);
         findAllMaskEvents();
     }
 
+    /**
+     * This functionality probably belongs in a different class.
+     */
     private static void findAllMaskEvents() {
         Config.debug("Finding all mask events...");
         allFreqEvents.forEach((outerFreqEvent) -> {
@@ -59,14 +75,35 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
-        stage.setTitle(Config.STAGE_TITLE);
-        BorderPane borderpane = new BorderPane();
-        borderpane.getStylesheets().add("css/Skin.css");
-        borderpane.setCenter(chart);
-        borderpane.setRight(UIControlFactory.createUIControls());
-        stage.setScene(new Scene(borderpane));
-        stage.getIcons().add(new Image("icon/icon.png"));
+        createRootNode();
 
+        initStage(stage, new Scene(rootNode));
+
+    }
+
+    private void createRootNode() {
+        rootNode = new VBox();
+        BorderPane borderPane = new BorderPane();
+        rootNode.getStylesheets().add("css/Skin.css");
+        borderPane.setCenter(chart);
+        borderPane.setRight(UIControlFactory.createUIControls());
+        initMenuBar();
+        rootNode.getChildren().add(menuBar);
+        rootNode.getChildren().add(borderPane);
+    }
+
+    private void initMenuBar(){
+        menuBar = new MenuBar();
+        Menu menuFile = new Menu("File");
+        MenuItem save = new MenuItem("Save");
+        menuFile.getItems().add(save);
+        menuBar.getMenus().addAll(menuFile);
+    }
+    
+    private void initStage(Stage stage, Scene scene) {
+        stage.setTitle(Config.STAGE_TITLE);
+        stage.setScene(scene);
+        stage.getIcons().add(new Image("icon/icon.png"));
         stage.getScene().setOnKeyPressed((KeyEvent event) -> {
             if (event.getCode().equals(KeyCode.SHIFT)) {
                 chart.setShiftPressed(true);
@@ -78,7 +115,6 @@ public class Main extends Application {
                 chart.setShiftPressed(false);
             }
         });
-
         stage.show();
     }
 
