@@ -5,6 +5,10 @@
     -fx-cursor:hand;
 }
 
+.context-menu{
+    -fx-background-color: #383838;
+}
+
 .menu-bar {
      -fx-background-color: #383838;
 }
@@ -13,6 +17,8 @@
 // is still showing some white when this is applied
 .menu-item {
      -fx-background-color: #383838;
+     -fx-text-fill: #e8e8e8;
+     
 }
 
 .label{
@@ -20,9 +26,6 @@
     -fx-font-weight: bold;
     -fx-effect: dropshadow( one-pass-box , black , 8 , 0.0 , 2 , 0 );
     -fx-effect: innershadow( gaussian, greenyellow, 8, 0.0, 2, 0);
-    
-    
-   // -fx-paint: linear-gradient(from 0px 0px to 0px 50px, red, green 50%, blue 99%, white);
 }
 .button{
     -fx-text-fill: #FFFFFF; 
