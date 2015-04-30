@@ -45,7 +45,7 @@ public class UIControlFactory {
 
     private static void initControls(){
         createNewFreqEventLabel = new Label("New Freq Event");
-        createNewFreqEventLabel.setFont(new Font(30));
+        createNewFreqEventLabel.setFont(new Font(23));
         minFreqLabel = new Label("Minimum Freq:");
         minFreqTextField = new TextField();
         maxFreqLabel = new Label("Maximum Freq:");
