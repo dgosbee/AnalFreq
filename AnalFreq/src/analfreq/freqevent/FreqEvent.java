@@ -46,12 +46,12 @@ public final class FreqEvent {
         this.maxFreq = endFreq;
     }
 
-    public String getInstrument() {
+    public String getName() {
         return name;
     }
 
-    public void setInstrument(String instrument) {
-        this.name = instrument;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {

@@ -17,7 +17,7 @@ public class MaskEvent {
     }
     
     public String toString(){
-        return "MASKING: "+freqEvents[0].getInstrument()
-                +" "+freqEvents[1].getInstrument();
+        return "MASKING: "+freqEvents[0].getName()
+                +" "+freqEvents[1].getName();
     }
 }

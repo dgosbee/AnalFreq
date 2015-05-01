@@ -31,8 +31,8 @@ public class DataManager {
         Debug.debug("Finding all mask events...");
         allFreqEvents.forEach((outerFreqEvent) -> {
             allFreqEvents.forEach((innerFreqEvent) -> {
-                if (!outerFreqEvent.getInstrument()
-                        .equals(innerFreqEvent.getInstrument())) {
+                if (!outerFreqEvent.getName()
+                        .equals(innerFreqEvent.getName())) {
                     Rectangle outerBounds = new Rectangle(outerFreqEvent.getStartTime(), outerFreqEvent.getMinFreq(),
                             outerFreqEvent.getEndTime() - outerFreqEvent.getStartTime(),
                             outerFreqEvent.getMaxFreq() - outerFreqEvent.getMinFreq());
@@ -69,7 +69,7 @@ public class DataManager {
         freqEvent.setDescription(description);
         addFreqEvent(freqEvent);
         XYChart.Series series = new XYChart.Series();
-        series.setName(freqEvent.getInstrument());
+        series.setName(freqEvent.getName());
         XYChart.Data data = new XYChart.Data(freqEvent.getMidTime(), freqEvent.getCenterFreq());
         series.getData().add(data);
         UIFactory.plotObject(series);
