@@ -1,0 +1,78 @@
+// JavaFX CSS Reference Guide: https://docs.oracle.com/javase/8/javafx/api/javafx/scene/doc-files/cssref.html
+
+.root{
+    -fx-background-color: #fff6f6;
+    -fx-cursor:hand;
+}
+
+.context-menu{
+    -fx-background-color: #fff6f6;
+}
+
+.menu-bar {
+     -fx-background-color: #fff6f6;
+}
+
+.menu-item {
+     -fx-background-color: #fff6f6;
+     -fx-text-fill: #4d3b3b;
+}
+
+.label{
+    -fx-text-fill: #4d3b3b;
+    -fx-font-weight: bold;
+    }
+.button{
+    -fx-background-color:
+        linear-gradient(#3a35ff, #2a00ff),
+        radial-gradient(center 50% -40%, radius 200%, #6636ee 45%, #0900c8 50%);
+    -fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: #ffffff;
+}
+
+.button:hover {
+    -fx-background-color: #0600ff;
+}
+
+.axis {
+    -fx-font-size: 1.4em;    
+    -fx-tick-label-fill: #4d3b3b;
+    -fx-font-family: Tahoma;
+    -fx-tick-length: 20;
+    -fx-minor-tick-length: 10;
+}
+ 
+.axis-label {
+    -fx-text-fill: #4d3b3b; 
+    -fx-effect: dropshadow( one-pass-box , black , 8 , 0.0 , 2 , 0 );
+    -fx-effect: innershadow( gaussian, blue, 8, 0.0, 2, 0);
+}
+ 
+.axis-tick-mark {
+    -fx-stroke: #3a35ff;
+    -fx-stroke-width: 2; 
+}
+.axis-minor-tick-mark {
+    -fx-stroke: #2a00ff;
+}
+
+.chart-legend {
+   -fx-background-color: #fff6f6;
+}
+ 
+.chart-legend-item-symbol{
+}
+ 
+.chart-legend-item{
+}
+
+.chart {
+ }
+
+.chart-title{
+ }
+
+.chart-content {
+ }
