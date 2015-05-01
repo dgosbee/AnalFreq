@@ -6,6 +6,8 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
     
+    // TEST COMMENT 
+    
     @Override
     public void start(Stage stage) {
         UIFactory.initStage(stage);
