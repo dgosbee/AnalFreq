@@ -15,8 +15,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -81,23 +79,9 @@ public class UIFactory {
     public static void initStage(Stage stage) {
         initMenus();
         initRootNode();
-        
         stage.setTitle(Config.STAGE_TITLE);
         stage.setScene(new Scene(rootNode));
-        stage.getIcons().add(new Image("icon/icon.png"));
-
-        stage.getScene().setOnKeyPressed((KeyEvent event) -> {
-            if (event.getCode().equals(KeyCode.SHIFT)) {
-                chart.setShiftPressed(true);
-            }
-        });
-
-        stage.getScene().setOnKeyReleased((KeyEvent event) -> {
-            if (event.getCode().equals(KeyCode.SHIFT)) {
-                chart.setShiftPressed(false);
-            }
-        });
-
+        stage.getIcons().add(new Image("icon/icon.png"));          
         stage.show();
 
     }

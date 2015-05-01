@@ -18,12 +18,7 @@ public class DragZoomBubbleChart extends BubbleChart {
     private int currEndTime = Config.END_TIME;
     private final DoubleProperty lastMouseX = new SimpleDoubleProperty();
     private final DoubleProperty lastMouseY = new SimpleDoubleProperty();
-    private boolean shiftPressed = false;
-
-    public void setShiftPressed(boolean b) {
-        shiftPressed = b;
-    }
-
+   
     public DragZoomBubbleChart(NumberAxis xAxis, NumberAxis yAxis) {
         super(xAxis, yAxis);
         this.xAxis = xAxis;
@@ -72,19 +67,19 @@ public class DragZoomBubbleChart extends BubbleChart {
 
     private void doLinuxZoom(ScrollEvent event) {
 
-        if (event.getDeltaY() > 0 && (!shiftPressed)) {
+        if (event.getDeltaY() > 0 && (!event.isShiftDown())) {
             zoomInFreq();
         }
 
-        if (event.getDeltaY() < 0 && (!shiftPressed)) {
+        if (event.getDeltaY() < 0 && (!event.isShiftDown())) {
             zoomOutFreq();
         }
 
-        if (event.getDeltaY() > 0 && (shiftPressed)) {
+        if (event.getDeltaY() > 0 && (event.isShiftDown())) {
             zoomInTime();
         }
 
-        if (event.getDeltaY() < 0 && (shiftPressed)) {
+        if (event.getDeltaY() < 0 && (event.isShiftDown())) {
             zoomOutTime();
         }
     }
