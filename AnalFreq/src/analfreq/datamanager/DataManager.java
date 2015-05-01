@@ -1,6 +1,7 @@
 package analfreq.datamanager;
 
 import analfreq.config.Config;
+import analfreq.debug.Debug;
 import analfreq.freqevent.FreqEvent;
 import analfreq.freqevent.MaskEvent;
 import analfreq.gui.UIFactory;
@@ -27,7 +28,7 @@ public class DataManager {
     }
 
     private static void findAllMaskEvents() {
-        Config.debug("Finding all mask events...");
+        Debug.debug("Finding all mask events...");
         allFreqEvents.forEach((outerFreqEvent) -> {
             allFreqEvents.forEach((innerFreqEvent) -> {
                 if (!outerFreqEvent.getInstrument()
@@ -42,7 +43,7 @@ public class DataManager {
                             innerBounds.getY(), innerBounds.getWidth(),
                             innerBounds.getHeight())) {
                         MaskEvent maskEvent = new MaskEvent(outerFreqEvent, innerFreqEvent);
-                        Config.debug(maskEvent.toString());
+                        Debug.debug(maskEvent.toString());
                     }
                 }
             });
@@ -81,7 +82,7 @@ public class DataManager {
 
         node.setOnMouseClicked((MouseEvent) -> {
 
-            Config.debug("CLICKED ON: "+freqEvent.toString());
+            Debug.debug("CLICKED ON: "+freqEvent.toString());
             
         });
 
