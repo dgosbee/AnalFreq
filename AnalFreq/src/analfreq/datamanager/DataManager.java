@@ -53,10 +53,10 @@ public class DataManager {
             String minFreq, String maxFreq,
             String startTime, String endTime,
             String description) {
-        plotInstrument(name, minFreq, maxFreq, startTime, endTime, description);
+        plotFreqEvent(name, minFreq, maxFreq, startTime, endTime, description);
     }
 
-    private static void plotInstrument(String name,
+    private static void plotFreqEvent(String name,
             String minFreq, String maxFreq,
             String startTime, String endTime,
             String description) {
@@ -78,5 +78,12 @@ public class DataManager {
         node.setScaleX(scaleX);
         node.setScaleY(scaleY);
         Tooltip.install(node, new Tooltip(freqEvent.toString()));
+
+        node.setOnMouseClicked((MouseEvent) -> {
+
+            Config.debug("CLICKED ON: "+freqEvent.toString());
+            
+        });
+
     }
 }
