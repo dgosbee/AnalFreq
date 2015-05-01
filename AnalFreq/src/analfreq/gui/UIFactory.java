@@ -70,7 +70,7 @@ public class UIFactory {
 
     private static void initRootNode() {
         rootNode = new BorderPane();
-        rootNode.getStylesheets().add("css/Skin.css");
+        rootNode.getStylesheets().add("css/Skin01.css");
         rootNode.setCenter(chart);
         rootNode.setRight(UIFactory.createUIControls());
         rootNode.setTop(menuBar);
