@@ -124,6 +124,7 @@ public class UIFactory {
         Button submitButton = new Button();
         submitButton.setText("Submit");
         submitButton.setOnAction((ActionEvent event) -> {
+            
             //Ensure that user enters data in the correct format
             String minFreqText = minFreqTextField.getText();
             String maxFreqText = maxFreqTextField.getText();

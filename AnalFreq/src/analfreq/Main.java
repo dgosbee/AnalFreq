@@ -8,7 +8,7 @@ public class Main extends Application {
     
     @Override
     public void start(Stage stage) {
-      UIFactory.initStage(stage);
+        UIFactory.initStage(stage);
     }
 
     public static void main(String[] args) {
