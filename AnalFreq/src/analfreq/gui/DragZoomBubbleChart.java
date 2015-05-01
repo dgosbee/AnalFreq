@@ -33,7 +33,7 @@ public class DragZoomBubbleChart extends BubbleChart {
     }
 
     private void initMouseHandlers() {
-        
+
         setOnMousePressed((MouseEvent event) -> {
             final double x = event.getX();
             final double y = event.getY();
@@ -53,19 +53,55 @@ public class DragZoomBubbleChart extends BubbleChart {
         });
 
         setOnScroll((ScrollEvent event) -> {
-
-            if (event.getDeltaX() > 0) {
-                zoomInTime();
-            } else if (event.getDeltaX() < 0) {
-                zoomOutTime();
-            }
-
-            if (event.getDeltaY() > 0) {
-                zoomInFreq();
-            } else if (event.getDeltaY() < 0) {
-                zoomOutFreq();
+            
+            /*
+            NOTE: This code is temporary. There MUST be some better
+            way to determine which direction the mouse wheel is turning.
+            But so far we can only figure out how to do it this way. We do 
+            a check for the operating system and run one kind of if statement 
+            for Linux, and another for Mac/Win.
+            */
+            
+            if (System.getProperty("os.name").equals("Linux")) {
+                doLinuxZoom(event);
+            } else {
+                doMacWinZoom(event);
             }
         });
+    }
+
+    private void doLinuxZoom(ScrollEvent event) {
+
+        if (event.getDeltaY() > 0 && (!shiftPressed)) {
+            zoomInFreq();
+        }
+
+        if (event.getDeltaY() < 0 && (!shiftPressed)) {
+            zoomOutFreq();
+        }
+
+        if (event.getDeltaY() > 0 && (shiftPressed)) {
+            zoomInTime();
+        }
+
+        if (event.getDeltaY() < 0 && (shiftPressed)) {
+            zoomOutTime();
+        }
+    }
+
+    private void doMacWinZoom(ScrollEvent event) {
+
+        if (event.getDeltaX() > 0) {
+            zoomInTime();
+        } else if (event.getDeltaX() < 0) {
+            zoomOutTime();
+        }
+
+        if (event.getDeltaY() > 0) {
+            zoomInFreq();
+        } else if (event.getDeltaY() < 0) {
+            zoomOutFreq();
+        }
     }
 
     private void zoomInFreq() {
