@@ -50,7 +50,13 @@ public class UIFactory {
         menuFile.getItems().add(new MenuItem("Save"));
         menuFile.getItems().add(new MenuItem("Save As"));
         menuFile.getItems().add(new SeparatorMenuItem());
-        menuFile.getItems().add(new MenuItem("Exit"));
+        
+        MenuItem exitMenuItem = new MenuItem("Exit");
+        exitMenuItem.setOnAction((ActionEvent)->{
+            System.exit(0);
+        });
+        
+        menuFile.getItems().add(exitMenuItem);
         menuBar.getMenus().add(menuFile);
         examplesMenu = new Menu("Settings");
         examplesMenu.getItems().add(new MenuItem("Preferences"));
