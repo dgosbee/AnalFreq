@@ -2,6 +2,7 @@ package analfreq.gui;
 
 import analfreq.config.Config;
 import analfreq.datamanager.DataManager;
+import analfreq.debug.Debug;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -158,7 +159,7 @@ public class UIFactory {
         Button resetButton = new Button();
         resetButton.setText("Reset");
         resetButton.setOnAction((ActionEvent event) -> {
-            Config.debug("Reset");
+            Debug.debug("Reset");
             clearTextFields();
         });
 
