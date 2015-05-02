@@ -1,5 +1,6 @@
 package analfreq.xml;
 
+import analfreq.config.Config;
 import analfreq.freqevent.FreqEvent;
 import java.io.File;
 import java.util.List;
@@ -18,12 +19,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class XMLWriter {
-
-    private static final String xmlPath = "src/analfreq/xml/project-data.xml";
-
-    public static String getXMLPath() {
-        return xmlPath;
-    }
 
     public static void writeXML(List<FreqEvent> freqEvents) {
         DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
@@ -87,12 +82,12 @@ public class XMLWriter {
             Logger.getLogger(XMLWriter.class.getName()).log(Level.SEVERE, null, ex);
         }
         DOMSource source = new DOMSource(doc);
-        StreamResult result = new StreamResult(new File(xmlPath));
+        StreamResult result = new StreamResult(new File(Config.XML_PATH));
         try {
             transformer.transform(source, result);
         } catch (TransformerException ex) {
             Logger.getLogger(XMLWriter.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("Project data saved! " + xmlPath);
+        System.out.println("Project data saved! " + Config.XML_PATH);
     }
 }

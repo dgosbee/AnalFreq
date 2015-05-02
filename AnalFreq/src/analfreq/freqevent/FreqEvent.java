@@ -89,7 +89,12 @@ public final class FreqEvent {
     public void setEndTime(int endTime) {
         this.endTime = endTime;
     }
-
+    
+    /**
+     * The mid time is automatically calculated based on the provided
+     * start and end times.
+     * @return the mid time
+     */
     public int getMidTime() {
         return midTime;
     }
