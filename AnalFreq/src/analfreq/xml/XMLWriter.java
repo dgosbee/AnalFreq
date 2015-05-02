@@ -1,10 +1,15 @@
 package analfreq.xml;
 
+import analfreq.freqevent.FreqEvent;
 import java.io.File;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
@@ -12,73 +17,82 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-/**
- * This is just a first pass at saving a FreqEvent as XML.
- * The code so far just sets up the mechanics. Next it should be
- * converted to use an actual FreqEvent object instead of String literals.
- * Eventually this code will write the data from a real session.
- */
 public class XMLWriter {
 
     private static final String xmlPath = "src/analfreq/xml/project-data.xml";
 
-    public static void writeXML() {
-
-        try {
-
-            DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-
-            Document doc = docBuilder.newDocument();
-            Element rootElement = doc.createElement("FreqEvent");
-            doc.appendChild(rootElement);
-
-            Element name = doc.createElement("EventName");
-            name.appendChild(doc.createTextNode("KICK PUNCH"));
-            rootElement.appendChild(name);
-        
-            Element maxFreq = doc.createElement("MaxFreq");
-            maxFreq.appendChild(doc.createTextNode("100"));
-            rootElement.appendChild(maxFreq);
-            
-            Element centerFreq = doc.createElement("CenterFreq");
-            centerFreq.appendChild(doc.createTextNode("90"));
-            rootElement.appendChild(centerFreq);
-            
-            Element minFreq = doc.createElement("MinFreq");
-            minFreq.appendChild(doc.createTextNode("80"));
-            rootElement.appendChild(minFreq);
-            
-            Element endTime = doc.createElement("EndTime");
-            endTime.appendChild(doc.createTextNode("60"));
-            rootElement.appendChild(endTime);
-            
-            Element centerTime = doc.createElement("CenterTime");
-            centerTime.appendChild(doc.createTextNode("30"));
-            rootElement.appendChild(centerTime);
-            
-            Element startTime = doc.createElement("StartTime");
-            startTime.appendChild(doc.createTextNode("1"));
-            rootElement.appendChild(startTime);
-        
-            Element description = doc.createElement("Description");
-            description.appendChild(doc.createTextNode("Lots of kick power here"));
-            rootElement.appendChild(description);
-           
-            // write the content into xml file
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
-            DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(new File(xmlPath));
-
-		// Output to console for testing
-            // StreamResult result = new StreamResult(System.out);
-            transformer.transform(source, result);
-
-            System.out.println("Sample file saved! "+xmlPath);
-
-        } catch (ParserConfigurationException | TransformerException pce) {}
-
+    public static String getXMLPath() {
+        return xmlPath;
     }
 
+    public static void writeXML(List<FreqEvent> freqEvents) {
+        DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder docBuilder = null;
+        try {
+            docBuilder = docFactory.newDocumentBuilder();
+        } catch (ParserConfigurationException ex) {
+            Logger.getLogger(XMLWriter.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Document doc = docBuilder.newDocument();
+
+        // Create root XML element
+        Element rootElement = doc.createElement("ProjectData");
+        doc.appendChild(rootElement);
+
+        // Convert FreqEvent data to XML elements
+        freqEvents.forEach((e) -> {
+            
+            Element freqEvent = doc.createElement("FreqEvent");  
+            rootElement.appendChild(freqEvent);
+            
+            Element name = doc.createElement("EventName");
+            name.appendChild(doc.createTextNode(e.getName()));
+            freqEvent.appendChild(name);
+            
+            Element maxFreq = doc.createElement("MaxFreq");
+            maxFreq.appendChild(doc.createTextNode(Integer.toString(e.getMaxFreq())));
+            freqEvent.appendChild(maxFreq);
+            
+            Element centerFreq = doc.createElement("CenterFreq");
+            centerFreq.appendChild(doc.createTextNode(Integer.toString(e.getCenterFreq())));
+            freqEvent.appendChild(centerFreq);
+            
+            Element minFreq = doc.createElement("MinFreq");
+            minFreq.appendChild(doc.createTextNode(Integer.toString(e.getMinFreq())));
+            freqEvent.appendChild(minFreq);
+            
+            Element endTime = doc.createElement("EndTime");
+            endTime.appendChild(doc.createTextNode(Integer.toString(e.getEndTime())));
+            freqEvent.appendChild(endTime);
+            
+            Element centerTime = doc.createElement("MidTime");
+            centerTime.appendChild(doc.createTextNode(Integer.toString(e.getMidTime())));
+            freqEvent.appendChild(centerTime);
+            
+            Element startTime = doc.createElement("StartTime");
+            startTime.appendChild(doc.createTextNode(Integer.toString(e.getStartTime())));
+            freqEvent.appendChild(startTime);
+            
+            Element description = doc.createElement("Description");
+            description.appendChild(doc.createTextNode(e.getDescription()));
+            freqEvent.appendChild(description);
+        });
+
+        // Write results to file
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer = null;
+        try {
+            transformer = transformerFactory.newTransformer();
+        } catch (TransformerConfigurationException ex) {
+            Logger.getLogger(XMLWriter.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        DOMSource source = new DOMSource(doc);
+        StreamResult result = new StreamResult(new File(xmlPath));
+        try {
+            transformer.transform(source, result);
+        } catch (TransformerException ex) {
+            Logger.getLogger(XMLWriter.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("Project data saved! " + xmlPath);
+    }
 }

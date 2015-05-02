@@ -22,6 +22,10 @@ public class DataManager {
 
     private static final List<FreqEvent> allFreqEvents = new ArrayList<>();
 
+    public static List<FreqEvent> getFreqEvents(){
+        return allFreqEvents;
+    }
+    
     public static void addFreqEvent(FreqEvent freqEvent) {
         allFreqEvents.add(freqEvent);
         findAllMaskEvents();

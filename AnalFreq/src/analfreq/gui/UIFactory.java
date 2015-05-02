@@ -3,6 +3,7 @@ package analfreq.gui;
 import analfreq.config.Config;
 import analfreq.datamanager.DataManager;
 import analfreq.debug.Debug;
+import analfreq.xml.XMLWriter;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -22,7 +23,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class UIFactory {
-
+    
     private static final DragZoomBubbleChart chart
             = DragZoomBubbleChartFactory.createBubbleChart();
     private static BorderPane rootNode;
@@ -30,28 +31,34 @@ public class UIFactory {
     private static Menu menuFile, examplesMenu, helpMenu;
     private static Label createNewFreqEventLabel, minFreqLabel, maxFreqLabel,
             startTimeLabel, endTimeLabel, eventNameLabel, eventDescriptionLabel;
-
+    
     private static HBox eventTypeControls, minFreqControls, maxFreqControls,
             startTimeControls, endTimeControls, eventDescriptionControls, buttonControls;
-
+    
     private static TextField minFreqTextField, maxFreqTextField, startTimeTextField,
             endTimeTextField, eventNameTextField, eventDescriptionTextField;
-
+    
     public static void plotObject(XYChart.Series series) {
         chart.getData().addAll(series);
     }
-
+    
     private static void initMenus() {
         menuBar = new MenuBar();
         menuFile = new Menu("File");
         menuFile.getItems().add(new MenuItem("New"));
         menuFile.getItems().add(new MenuItem("Open"));
-        menuFile.getItems().add(new MenuItem("Save"));
+        
+        MenuItem saveMenuItem = new MenuItem("Save");
+        saveMenuItem.setOnAction((ActionEvent) -> {
+            XMLWriter.writeXML(DataManager.getFreqEvents());
+        });
+        
+        menuFile.getItems().add(saveMenuItem);
         menuFile.getItems().add(new MenuItem("Save As"));
         menuFile.getItems().add(new SeparatorMenuItem());
         
         MenuItem exitMenuItem = new MenuItem("Exit");
-        exitMenuItem.setOnAction((ActionEvent)->{
+        exitMenuItem.setOnAction((ActionEvent) -> {
             System.exit(0);
         });
         
@@ -67,7 +74,7 @@ public class UIFactory {
         helpMenu.getItems().add(new MenuItem("About"));
         menuBar.getMenus().add(helpMenu);
     }
-
+    
     private static void initRootNode() {
         rootNode = new BorderPane();
         rootNode.getStylesheets().add("css/Skin01.css");
@@ -75,17 +82,17 @@ public class UIFactory {
         rootNode.setRight(UIFactory.createUIControls());
         rootNode.setTop(menuBar);
     }
-
+    
     public static void initStage(Stage stage) {
         initMenus();
         initRootNode();
         stage.setTitle(Config.STAGE_TITLE);
         stage.setScene(new Scene(rootNode));
-        stage.getIcons().add(new Image("icon/icon.png"));          
+        stage.getIcons().add(new Image("icon/icon.png"));        
         stage.show();
-
+        
     }
-
+    
     private static void clearTextFields() {
         eventNameTextField.clear();
         minFreqTextField.clear();
@@ -94,7 +101,7 @@ public class UIFactory {
         endTimeTextField.clear();
         eventDescriptionTextField.clear();
     }
-
+    
     private static void initUIControls() {
         createNewFreqEventLabel = new Label("Freq Event Editor");
         createNewFreqEventLabel.setFont(new Font(23));
@@ -115,7 +122,7 @@ public class UIFactory {
         Button submitButton = new Button();
         submitButton.setText("Submit");
         submitButton.setOnAction((ActionEvent event) -> {
-            
+
             //Ensure that user enters data in the correct format
             String minFreqText = minFreqTextField.getText();
             String maxFreqText = maxFreqTextField.getText();
@@ -124,7 +131,7 @@ public class UIFactory {
             String regex = "\\D+";
             if (minFreqText.matches(regex) && maxFreqText.matches(regex)) {
                 System.out.println("Invalid input.");
-
+                
             } else {
 
                 //Sending the data to the DataManager
@@ -134,7 +141,7 @@ public class UIFactory {
                         startTimeTextField.getText(),
                         endTimeTextField.getText(),
                         eventDescriptionTextField.getText());
-
+                
                 clearTextFields();
             }
         });
@@ -146,12 +153,12 @@ public class UIFactory {
             Debug.debug("Reset");
             clearTextFields();
         });
-
+        
         buttonControls = new HBox();
         buttonControls.getChildren().addAll(submitButton, resetButton);
         buttonControls.setSpacing(10);
     }
-
+    
     public static GridPane createUIControls() {
         initUIControls();
         GridPane gridPane = new GridPane();
