@@ -23,10 +23,6 @@ public class XMLReader {
     // Current data from XML file
     private static String eventName, description, maxFreq, centerFreq, minFreq, endTime, midTime, startTime;
 
-    /**
-     * Reads the stored FreqEvent XML data from the file system, parses it, 
- and passes the extracted values off to DataManager.processDataFromStrings.
-     */
     public static void readXML() throws FileNotFoundException, XMLStreamException {
         inputFactory = XMLInputFactory.newInstance();
         in = new FileInputStream(Config.XML_PATH);
@@ -48,8 +44,7 @@ public class XMLReader {
             }
         }
         
-        if (event.isStartElement()) {
-            
+        if (event.isStartElement()) { 
             StartElement startElement = event.asStartElement();
             String startElementTag = startElement.getName().getLocalPart();
             switch (startElementTag) {

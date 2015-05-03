@@ -3,7 +3,7 @@ package analfreq.gui;
 import analfreq.config.Config;
 import javafx.scene.chart.NumberAxis;
 
-public class DragZoomBubbleChartFactory {
+public class DragZoomBubbleChartManager {
 
     public static DragZoomBubbleChart createBubbleChart() {
         final NumberAxis xAxis = new NumberAxis(Config.MIN_SEC, Config.END_TIME, Config.STEP);
