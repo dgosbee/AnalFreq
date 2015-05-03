@@ -25,7 +25,7 @@ public class XMLReader {
 
     /**
      * Reads the stored FreqEvent XML data from the file system, parses it, 
-     * and passes the extracted values off to DataManager.processDataFromGUI.
+ and passes the extracted values off to DataManager.processDataFromStrings.
      */
     public static void readXML() throws FileNotFoundException, XMLStreamException {
         inputFactory = XMLInputFactory.newInstance();
@@ -43,7 +43,7 @@ public class XMLReader {
            EndElement endElement = event.asEndElement();
             String endElementTag = endElement.getName().getLocalPart();
             if(endElementTag.equalsIgnoreCase("FreqEvent")){
-                DataManager.processDataFromGUI(eventName, minFreq, 
+                DataManager.plotFreqEvent(eventName, minFreq, 
                         maxFreq, startTime, endTime, description); 
             }
         }

@@ -21,8 +21,7 @@ public class Main extends Application {
             XMLReader.readXML();
         } catch (FileNotFoundException ex) {
             Debug.debug("WARNING: No XML data found at: "+Config.XML_PATH+ " (try saving your project next time!)");
-        } catch (XMLStreamException ex) {
-            
+        } catch (XMLStreamException ex) {   
         }
     }
 

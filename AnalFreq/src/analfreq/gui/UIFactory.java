@@ -135,7 +135,7 @@ public class UIFactory {
             } else {
 
                 //Sending the data to the DataManager
-                DataManager.processDataFromGUI(eventNameTextField.getText(),
+                DataManager.plotFreqEvent(eventNameTextField.getText(),
                         minFreqTextField.getText(),
                         maxFreqTextField.getText(),
                         startTimeTextField.getText(),

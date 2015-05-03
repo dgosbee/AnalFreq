@@ -28,7 +28,7 @@ public class DataManager {
     
     public static void addFreqEvent(FreqEvent freqEvent) {
         allFreqEvents.add(freqEvent);
-        findAllMaskEvents();
+        //findAllMaskEvents();
     }
 
     private static void findAllMaskEvents() {
@@ -54,14 +54,7 @@ public class DataManager {
         });
     }
 
-    public static void processDataFromGUI(String name,
-            String minFreq, String maxFreq,
-            String startTime, String endTime,
-            String description) {
-        plotFreqEvent(name, minFreq, maxFreq, startTime, endTime, description);
-    }
-
-    private static void plotFreqEvent(String name,
+    public static void plotFreqEvent(String name,
             String minFreq, String maxFreq,
             String startTime, String endTime,
             String description) {
@@ -83,11 +76,8 @@ public class DataManager {
         node.setScaleX(scaleX);
         node.setScaleY(scaleY);
         Tooltip.install(node, new Tooltip(freqEvent.toString()));
-
         node.setOnMouseClicked((MouseEvent) -> {
-
             Debug.debug("CLICKED ON: "+freqEvent.toString());
-            
         });
 
     }
