@@ -9,7 +9,6 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Region;
-import javafx.scene.shape.Rectangle;
 
 public class DragZoomBubbleChart extends BubbleChart {
 

@@ -9,4 +9,9 @@ public class Debug {
             System.out.println(s);
         }
     }
+
+    public static String getCurrentMethodName() {
+        StackTraceElement stackTraceElements[] = (new Throwable()).getStackTrace();
+        return stackTraceElements[1].toString();
+    }
 }

@@ -13,6 +13,7 @@ public class Main extends Application {
     
     @Override
     public void start(Stage stage) {
+        Debug.debug(Debug.getCurrentMethodName()+": Starting Program...");
         UIManager.initStage(stage);
         try {
             XMLReader.readXML();

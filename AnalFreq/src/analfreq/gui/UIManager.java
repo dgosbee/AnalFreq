@@ -4,7 +4,6 @@ import analfreq.config.Config;
 import analfreq.datamanager.DataManager;
 import analfreq.debug.Debug;
 import analfreq.xml.XMLWriter;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -155,7 +154,7 @@ public class UIManager {
         Button resetButton = new Button();
         resetButton.setText("Reset");
         resetButton.setOnAction((ActionEvent event) -> {
-            Debug.debug("Reset");
+            Debug.debug(Debug.getCurrentMethodName()+": Reset");
             clearTextFields();
         });
 

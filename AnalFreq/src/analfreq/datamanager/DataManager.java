@@ -78,7 +78,7 @@ public class DataManager {
     private static void installTooltip(){
          Tooltip.install(node, new Tooltip(freqEvent.toString()));
         node.setOnMouseClicked((MouseEvent) -> {
-            Debug.debug("CLICKED ON: " + freqEvent.toString());
+            Debug.debug(Debug.getCurrentMethodName()+": CLICKED ON: " + freqEvent.toString());
         });
     }
     
