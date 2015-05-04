@@ -14,16 +14,11 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         UIManager.initStage(stage);
-        
-        
         try {
             XMLReader.readXML();
         } catch (FileNotFoundException ex) {
             Debug.debug("WARNING: No XML data found at: "+Config.XML_PATH+ " (try saving your project next time!)");
-        } catch (XMLStreamException ex) {   
-        }
-        
-        
+        } catch (XMLStreamException ex) {}  
     }
 
     public static void main(String[] args) {
