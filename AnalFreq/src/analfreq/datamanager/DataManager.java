@@ -21,14 +21,17 @@ package analfreq.datamanager;
 
 import analfreq.debug.Debug;
 import analfreq.freqevent.FreqEvent;
+import analfreq.freqevent.FreqEventType;
 import analfreq.gui.DragZoomBubbleChart;
 import analfreq.gui.UIManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
+import javafx.beans.property.ObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tooltip;
 
 /**
@@ -49,9 +52,10 @@ public class DataManager {
     private static double scaleY;
     private static Node node;
 
-    public static void plotFreqEvent(String name, String minFreq, String maxFreq,
+    public static void plotFreqEvent(String name,FreqEventType type,String minFreq, String maxFreq,
             String startTime, String endTime, String description) {
-        freqEvent = new FreqEvent(name, Integer.parseInt(minFreq), Integer.parseInt(maxFreq),
+        Debug.debug(Debug.getCurrentMethodName());
+        freqEvent = new FreqEvent(name, type, Integer.parseInt(minFreq), Integer.parseInt(maxFreq),
                 Integer.parseInt(startTime), Integer.parseInt(endTime));
         freqEvent.setDescription(description);
         freqEvents.add(freqEvent);

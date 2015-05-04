@@ -64,6 +64,10 @@ public class XMLWriter {
             name.appendChild(doc.createTextNode(e.getName()));
             freqEvent.appendChild(name);
             
+            Element type = doc.createElement("EventType");
+            type.appendChild(doc.createTextNode(e.getType().toString()));
+            freqEvent.appendChild(type);
+            
             Element maxFreq = doc.createElement("MaxFreq");
             maxFreq.appendChild(doc.createTextNode(Integer.toString(e.getMaxFreq())));
             freqEvent.appendChild(maxFreq);

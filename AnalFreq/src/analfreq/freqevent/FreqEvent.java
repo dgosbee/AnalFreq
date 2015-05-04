@@ -28,11 +28,14 @@ package analfreq.freqevent;
 public final class FreqEvent {
 
     private String name,description;
-    private int minFreq, maxFreq, centerFreq, startTime, midTime, endTime;
- 
-    public FreqEvent(String name, int minFreq, int maxFreq,
+    private FreqEventType type;
+    private int minFreq, maxFreq, centerFreq, 
+            startTime, midTime, endTime;
+    
+    public FreqEvent(String name, FreqEventType type, int minFreq, int maxFreq,
             int startTime, int endTime) {
         this.name = name;
+        this.type = type;
         this.minFreq = minFreq;
         this.maxFreq = maxFreq;
         this.centerFreq = (minFreq+maxFreq)/2;
@@ -41,6 +44,14 @@ public final class FreqEvent {
         this.endTime = endTime;
     }
 
+    public FreqEventType getType(){
+        return type;
+    }
+    
+    public void setFreqEventType(FreqEventType type){
+        this.type = type;
+    }
+    
     public int getMinFreq() {
         return minFreq;
     }
@@ -85,6 +96,7 @@ public final class FreqEvent {
     public String toString() {
         String result = "";
         result = result + "Event: " + name
+                + "\nEvent Type: " + type.toString()
                 + "\nMaximum Frequency: " + maxFreq
                 + "\nCenter Frequency: " + centerFreq
                 + "\nMinimum Frequency: " + minFreq

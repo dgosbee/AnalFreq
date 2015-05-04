@@ -2,6 +2,7 @@
 <ProjectData>
     <FreqEvent>
         <EventName>KICK BOOM</EventName>
+        <EventType>GOOD</EventType>
         <MaxFreq>70</MaxFreq>
         <CenterFreq>45</CenterFreq>
         <MinFreq>20</MinFreq>
@@ -12,6 +13,7 @@
     </FreqEvent>
     <FreqEvent>
         <EventName>KICK PUNCH</EventName>
+        <EventType>GOOD</EventType>
         <MaxFreq>300</MaxFreq>
         <CenterFreq>185</CenterFreq>
         <MinFreq>70</MinFreq>
@@ -22,6 +24,7 @@
     </FreqEvent>
     <FreqEvent>
         <EventName>KICK FIZZ</EventName>
+        <EventType>UGLY</EventType>
         <MaxFreq>2000</MaxFreq>
         <CenterFreq>1150</CenterFreq>
         <MinFreq>300</MinFreq>
@@ -32,6 +35,7 @@
     </FreqEvent>
     <FreqEvent>
         <EventName>KICK AIR</EventName>
+        <EventType>UGLY</EventType>
         <MaxFreq>20000</MaxFreq>
         <CenterFreq>11000</CenterFreq>
         <MinFreq>2000</MinFreq>
@@ -39,5 +43,5 @@
         <MidTime>121</MidTime>
         <StartTime>42</StartTime>
         <Description>Doubtful that any of this region will be useful. It's "airy" sound that probably is not important.</Description>
-    </FreqEvent>  
+    </FreqEvent>
 </ProjectData>

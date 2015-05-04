@@ -21,6 +21,8 @@ package analfreq.xml;
 
 import analfreq.config.Config;
 import analfreq.datamanager.DataManager;
+import analfreq.debug.Debug;
+import analfreq.freqevent.FreqEventType;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -41,8 +43,10 @@ public class XMLReader {
 
     // Current data from XML file
     private static String eventName, description, maxFreq, centerFreq, minFreq, endTime, midTime, startTime;
+    private static FreqEventType freqEventType;
 
     public static void readXML() throws FileNotFoundException, XMLStreamException {
+        Debug.debug(Debug.getCurrentMethodName());
         inputFactory = XMLInputFactory.newInstance();
         in = new FileInputStream(Config.XML_PATH);
         eventReader = inputFactory.createXMLEventReader(in);
@@ -53,12 +57,13 @@ public class XMLReader {
     }
 
     private static void processElements() throws XMLStreamException {
+        Debug.debug(Debug.getCurrentMethodName());
 
         if(event.isEndElement()){
            EndElement endElement = event.asEndElement();
             String endElementTag = endElement.getName().getLocalPart();
             if(endElementTag.equalsIgnoreCase("FreqEvent")){
-                DataManager.plotFreqEvent(eventName, minFreq, 
+                DataManager.plotFreqEvent(eventName, freqEventType, minFreq, 
                         maxFreq, startTime, endTime, description); 
             }
         }
@@ -72,7 +77,13 @@ public class XMLReader {
                     event = eventReader.nextEvent();
                     eventName = event.asCharacters().getData();
                     break;
-
+                    
+                case "EventType":
+                    event = eventReader.nextEvent();
+                    String fe = event.asCharacters().getData();
+                    freqEventType = FreqEventType.valueOf(fe);
+                    break;
+                        
                 case "MaxFreq":
                     event = eventReader.nextEvent();
                     maxFreq = event.asCharacters().getData();
