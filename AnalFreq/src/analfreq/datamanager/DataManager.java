@@ -16,7 +16,6 @@
  * You should have received a copy of the GNU General Public License
  * along with AnalFreq.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package analfreq.datamanager;
 
 import analfreq.debug.Debug;
@@ -52,9 +51,9 @@ public class DataManager {
     private static double scaleY;
     private static Node node;
 
-    public static void plotFreqEvent(String name,FreqEventType type,String minFreq, String maxFreq,
+    public static void plotFreqEvent(String name, FreqEventType type, String minFreq, String maxFreq,
             String startTime, String endTime, String description) {
-        Debug.debug(Debug.getCurrentMethodName());
+        Debug.debug(Debug.getCurrentMethodName() + "================================================================================>");
         freqEvent = new FreqEvent(name, type, Integer.parseInt(minFreq), Integer.parseInt(maxFreq),
                 Integer.parseInt(startTime), Integer.parseInt(endTime));
         freqEvent.setDescription(description);
@@ -71,7 +70,26 @@ public class DataManager {
         } else {
             doIfSeriesExists();
         }
+        node.setId(freqEvent.getName());
+        Debug.debug(node.toString());
+        Debug.debug(Debug.getCurrentMethodName() + "================================================================================>");
+
+        // ADD CLICK SUPPORT
+        seriesList.stream().forEach((series) -> {
+            Debug.debug(series.toString());
+            ObservableList<XYChart.Data> dataList = series.getData();
+            dataList.stream().forEach((data) -> {
+                Node node = data.getNode();
+                node.setOnMouseClicked((c) -> {
+                    Debug.debug(Debug.getCurrentMethodName() + ": " + node.getId());
+                });
+            });
+        });
+
     }
+
+    
+  
     
     private static void doIfSeriesExists() {
         boolean matchesExistingSeries = false;
@@ -98,19 +116,19 @@ public class DataManager {
         installTooltip();
     }
 
-    private static void installTooltip(){
-         Tooltip.install(node, new Tooltip(freqEvent.toString()));
+    private static void installTooltip() {
+        Tooltip.install(node, new Tooltip(freqEvent.toString()));
         node.setOnMouseClicked((MouseEvent) -> {
-            Debug.debug(Debug.getCurrentMethodName()+": CLICKED ON: " + freqEvent.toString());
+            Debug.debug(Debug.getCurrentMethodName() + ": CLICKED ON: " + freqEvent.toString());
         });
     }
-    
+
     private static void scaleNode() {
         node = data.getNode();
         node.setScaleX(scaleX);
         node.setScaleY(scaleY);
     }
-    
+
     public static List<FreqEvent> getFreqEvents() {
         return freqEvents;
     }

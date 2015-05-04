@@ -62,8 +62,12 @@ public class UIManager {
     private static TextField minFreqTextField, maxFreqTextField, startTimeTextField,
             endTimeTextField, eventNameTextField, eventDescriptionTextField;
 
+    /**
+     * This method is called once per series to be plotted. For example, the KICK
+     * series might contain any number of data items: KICK PUNCH, KICK CLICK etc.
+     * @param series 
+     */
     public static void plotObject(XYChart.Series series) {
-        Debug.debug(Debug.getCurrentMethodName());
         chart.getData().addAll(series);
     }
 
