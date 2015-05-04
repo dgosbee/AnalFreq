@@ -39,45 +39,5 @@
         <MidTime>121</MidTime>
         <StartTime>42</StartTime>
         <Description>Doubtful that any of this region will be useful. It's "airy" sound that probably is not important.</Description>
-    </FreqEvent>
-    <FreqEvent>
-        <EventName>BASS SLAP</EventName>
-        <MaxFreq>300</MaxFreq>
-        <CenterFreq>200</CenterFreq>
-        <MinFreq>100</MinFreq>
-        <EndTime>66</EndTime>
-        <MidTime>33</MidTime>
-        <StartTime>1</StartTime>
-        <Description>This is the "slappy" part of the bass track</Description>
-    </FreqEvent>
-    <FreqEvent>
-        <EventName>BASS SLAP</EventName>
-        <MaxFreq>500</MaxFreq>
-        <CenterFreq>400</CenterFreq>
-        <MinFreq>300</MinFreq>
-        <EndTime>66</EndTime>
-        <MidTime>33</MidTime>
-        <StartTime>1</StartTime>
-        <Description>This is the airy part of the bass track</Description>
-    </FreqEvent>
-    <FreqEvent>
-        <EventName>GUITAR CRUNCH</EventName>
-        <MaxFreq>666</MaxFreq>
-        <CenterFreq>583</CenterFreq>
-        <MinFreq>500</MinFreq>
-        <EndTime>100</EndTime>
-        <MidTime>72</MidTime>
-        <StartTime>45</StartTime>
-        <Description>This is the crunchy part of the guitar track</Description>
-    </FreqEvent>
-    <FreqEvent>
-        <EventName>SYNTH FUZZ</EventName>
-        <MaxFreq>800</MaxFreq>
-        <CenterFreq>700</CenterFreq>
-        <MinFreq>600</MinFreq>
-        <EndTime>100</EndTime>
-        <MidTime>72</MidTime>
-        <StartTime>45</StartTime>
-        <Description>This is the fuzzy part of the synth track</Description>
-    </FreqEvent>
+    </FreqEvent>  
 </ProjectData>
