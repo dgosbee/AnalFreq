@@ -1,1 +1,83 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><ProjectData><FreqEvent><EventName>KICK BOOM</EventName><MaxFreq>70</MaxFreq><CenterFreq>45</CenterFreq><MinFreq>20</MinFreq><EndTime>200</EndTime><MidTime>121</MidTime><StartTime>42</StartTime><Description>Very "woofy" part of kick. Makes speaker cone rattle. Like a car driving by.</Description></FreqEvent><FreqEvent><EventName>KICK PUNCH</EventName><MaxFreq>300</MaxFreq><CenterFreq>185</CenterFreq><MinFreq>70</MinFreq><EndTime>200</EndTime><MidTime>121</MidTime><StartTime>42</StartTime><Description>Really punches hard when turned up. Drives the beat.</Description></FreqEvent><FreqEvent><EventName>KICK FIZZ</EventName><MaxFreq>2000</MaxFreq><CenterFreq>1150</CenterFreq><MinFreq>300</MinFreq><EndTime>200</EndTime><MidTime>121</MidTime><StartTime>42</StartTime><Description>These upper mids don't punch. Might be perceived as presence though. Hard to tell in solo.</Description></FreqEvent><FreqEvent><EventName>KICK AIR</EventName><MaxFreq>20000</MaxFreq><CenterFreq>11000</CenterFreq><MinFreq>2000</MinFreq><EndTime>200</EndTime><MidTime>121</MidTime><StartTime>42</StartTime><Description>Doubtful that any of this region will be useful. It's "airy" sound that probably is not important.</Description></FreqEvent></ProjectData>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ProjectData>
+    <FreqEvent>
+        <EventName>KICK BOOM</EventName>
+        <MaxFreq>70</MaxFreq>
+        <CenterFreq>45</CenterFreq>
+        <MinFreq>20</MinFreq>
+        <EndTime>200</EndTime>
+        <MidTime>121</MidTime>
+        <StartTime>42</StartTime>
+        <Description>Very "woofy" part of kick. Makes speaker cone rattle. Like a car driving by.</Description>
+    </FreqEvent>
+    <FreqEvent>
+        <EventName>KICK PUNCH</EventName>
+        <MaxFreq>300</MaxFreq>
+        <CenterFreq>185</CenterFreq>
+        <MinFreq>70</MinFreq>
+        <EndTime>200</EndTime>
+        <MidTime>121</MidTime>
+        <StartTime>42</StartTime>
+        <Description>Really punches hard when turned up. Drives the beat.</Description>
+    </FreqEvent>
+    <FreqEvent>
+        <EventName>KICK FIZZ</EventName>
+        <MaxFreq>2000</MaxFreq>
+        <CenterFreq>1150</CenterFreq>
+        <MinFreq>300</MinFreq>
+        <EndTime>200</EndTime>
+        <MidTime>121</MidTime>
+        <StartTime>42</StartTime>
+        <Description>These upper mids don't punch. Might be perceived as presence though. Hard to tell in solo.</Description>
+    </FreqEvent>
+    <FreqEvent>
+        <EventName>KICK AIR</EventName>
+        <MaxFreq>20000</MaxFreq>
+        <CenterFreq>11000</CenterFreq>
+        <MinFreq>2000</MinFreq>
+        <EndTime>200</EndTime>
+        <MidTime>121</MidTime>
+        <StartTime>42</StartTime>
+        <Description>Doubtful that any of this region will be useful. It's "airy" sound that probably is not important.</Description>
+    </FreqEvent>
+    <FreqEvent>
+        <EventName>BASS SLAP</EventName>
+        <MaxFreq>300</MaxFreq>
+        <CenterFreq>200</CenterFreq>
+        <MinFreq>100</MinFreq>
+        <EndTime>66</EndTime>
+        <MidTime>33</MidTime>
+        <StartTime>1</StartTime>
+        <Description>This is the "slappy" part of the bass track</Description>
+    </FreqEvent>
+    <FreqEvent>
+        <EventName>BASS SLAP</EventName>
+        <MaxFreq>500</MaxFreq>
+        <CenterFreq>400</CenterFreq>
+        <MinFreq>300</MinFreq>
+        <EndTime>66</EndTime>
+        <MidTime>33</MidTime>
+        <StartTime>1</StartTime>
+        <Description>This is the airy part of the bass track</Description>
+    </FreqEvent>
+    <FreqEvent>
+        <EventName>GUITAR CRUNCH</EventName>
+        <MaxFreq>666</MaxFreq>
+        <CenterFreq>583</CenterFreq>
+        <MinFreq>500</MinFreq>
+        <EndTime>100</EndTime>
+        <MidTime>72</MidTime>
+        <StartTime>45</StartTime>
+        <Description>This is the crunchy part of the guitar track</Description>
+    </FreqEvent>
+    <FreqEvent>
+        <EventName>SYNTH FUZZ</EventName>
+        <MaxFreq>800</MaxFreq>
+        <CenterFreq>700</CenterFreq>
+        <MinFreq>600</MinFreq>
+        <EndTime>100</EndTime>
+        <MidTime>72</MidTime>
+        <StartTime>45</StartTime>
+        <Description>This is the fuzzy part of the synth track</Description>
+    </FreqEvent>
+</ProjectData>
