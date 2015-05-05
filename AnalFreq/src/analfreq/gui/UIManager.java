@@ -65,16 +65,16 @@ public class UIManager {
             endTimeTextField, eventNameTextField, eventDescriptionTextField;
 
     private static Button submitUpdateButton, resetButton;
-    
+
     private static Node updateNode;
-    
+
     // True when updating an existing node
     private static boolean isUpdate = false;
-    
-    public static void updateForm(Node n, FreqEvent fe){
+
+    public static void updateForm(Node n, FreqEvent fe) {
         isUpdate = true;
         updateNode = n;
-        Debug.debug(Debug.getCurrentMethodName()+"Node: "+n.getId()+" FreqEvent: "+fe.getName());
+        Debug.debug(Debug.getCurrentMethodName() + "Node: " + n.getId() + " FreqEvent: " + fe.getName());
         minFreqTextField.setText(Integer.toString(fe.getMinFreq()));
         maxFreqTextField.setText(Integer.toString(fe.getMaxFreq()));
         startTimeTextField.setText(Integer.toString(fe.getStartTime()));
@@ -84,9 +84,10 @@ public class UIManager {
         comboBox.setValue(fe.getType());
         submitUpdateButton.setText("Update");
     }
-    
-     private static void reset() {
+
+    private static void reset() {
         isUpdate = false;
+        comboBox.setValue(FreqEventType.GOOD);
         Debug.debug(Debug.getCurrentMethodName());
         eventNameTextField.clear();
         minFreqTextField.clear();
@@ -96,11 +97,13 @@ public class UIManager {
         eventDescriptionTextField.clear();
         submitUpdateButton.setText("Submit");
     }
-   
+
     /**
-     * This method is called once per series to be plotted. For example, the KICK
-     * series might contain any number of data items: KICK PUNCH, KICK CLICK etc.
-     * @param series 
+     * This method is called once per series to be plotted. For example, the
+     * KICK series might contain any number of data items: KICK PUNCH, KICK
+     * CLICK etc.
+     *
+     * @param series
      */
     public static void plotObject(XYChart.Series series) {
         chart.getData().addAll(series);
@@ -165,20 +168,18 @@ public class UIManager {
 
     }
 
-   
-
     private static void initUIControls() {
         Debug.debug(Debug.getCurrentMethodName());
-        
+
         typeOptions = FXCollections.observableArrayList(
                 FreqEventType.GOOD,
                 FreqEventType.BAD,
                 FreqEventType.UGLY
         );
-        
+
         comboBox = new ComboBox(typeOptions);
         comboBox.setValue(FreqEventType.GOOD);
-        
+
         createNewFreqEventLabel = new Label("Freq Event Editor");
         createNewFreqEventLabel.setFont(new Font(23));
         typeLabel = new Label("Event Type:");
@@ -212,21 +213,23 @@ public class UIManager {
             } else {
 
                 //Sending the data to the DataManager
-                if(!isUpdate){
-                DataManager.plotFreqEvent(eventNameTextField.getText(),
-                        (FreqEventType)comboBox.getValue(),
-                        minFreqTextField.getText(),
-                        maxFreqTextField.getText(),
-                        startTimeTextField.getText(),
-                        endTimeTextField.getText(),
-                        eventDescriptionTextField.getText());
-                }else{
-                    DataManager.plotFreqEvent(updateNode, eventNameTextField.getText(),
-                        (FreqEventType)comboBox.getValue(), minFreqTextField.getText(),
-                        maxFreqTextField.getText(),
-                        startTimeTextField.getText(),
-                        endTimeTextField.getText(),
-                        eventDescriptionTextField.getText());
+                if (!isUpdate) {
+                    DataManager.plotFreqEvent(eventNameTextField.getText(),
+                            (FreqEventType) comboBox.getValue(),
+                            minFreqTextField.getText(),
+                            maxFreqTextField.getText(),
+                            startTimeTextField.getText(),
+                            endTimeTextField.getText(),
+                            eventDescriptionTextField.getText());
+                } else {
+                    DataManager.updatePlottedFreqEvent(updateNode,
+                            eventNameTextField.getText(),
+                            (FreqEventType) comboBox.getValue(),
+                            minFreqTextField.getText(),
+                            maxFreqTextField.getText(),
+                            startTimeTextField.getText(),
+                            endTimeTextField.getText(),
+                            eventDescriptionTextField.getText());
                 }
                 reset();
             }
@@ -239,7 +242,7 @@ public class UIManager {
             Debug.debug(Debug.getCurrentMethodName() + ": Reset");
             reset();
         });
-
+        
         buttonControls = new HBox();
         buttonControls.getChildren().addAll(submitUpdateButton, resetButton);
         buttonControls.setSpacing(10);
@@ -256,10 +259,8 @@ public class UIManager {
         gridPane.add(createNewFreqEventLabel, 0, 0, 2, 1);
         gridPane.add(eventNameLabel, 0, 1);
         gridPane.add(eventNameTextField, 1, 1);
-        
-         gridPane.add(typeLabel,0,2);
-        gridPane.add(comboBox,1,2);
-        
+        gridPane.add(typeLabel, 0, 2);
+        gridPane.add(comboBox, 1, 2);
         gridPane.add(minFreqLabel, 0, 3);
         gridPane.add(minFreqTextField, 1, 3);
         gridPane.add(maxFreqLabel, 0, 4);
@@ -271,7 +272,6 @@ public class UIManager {
         gridPane.add(eventDescriptionLabel, 0, 7);
         gridPane.add(eventDescriptionTextField, 1, 7);
         gridPane.add(buttonControls, 0, 8, 2, 1);
-       
         return gridPane;
     }
 }
