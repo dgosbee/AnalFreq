@@ -49,9 +49,21 @@ public class DataManager {
     private static double scaleY;
     private static Node node;
 
+    public static void plotFreqEvent(Node updateNode, String name,
+            FreqEventType type, String minFreq, String maxFreq,
+            String startTime, String endTime, String description) {
+
+        Debug.debug(Debug.getCurrentMethodName());
+        Debug.debug("Would UPDATE existing node..." + updateNode.toString());
+        Debug.debug("*************************");
+        Debug.debug("UPDATE IMPLEMENTATION TBD");
+        Debug.debug("*************************");
+
+    }
+
     public static void plotFreqEvent(String name, FreqEventType type, String minFreq, String maxFreq,
             String startTime, String endTime, String description) {
-        
+
         // CREATE FREQ EVENT
         freqEvent = new FreqEvent(name, type, Integer.parseInt(minFreq), Integer.parseInt(maxFreq),
                 Integer.parseInt(startTime), Integer.parseInt(endTime));
@@ -59,14 +71,13 @@ public class DataManager {
         freqEvents.add(freqEvent);
         tokenizer = new StringTokenizer(freqEvent.getName());
         freqEventToken = tokenizer.nextToken();
-        
-        
+
         // CREATE CHART DATA
         data = new XYChart.Data(freqEvent.getMidTime(), freqEvent.getCenterFreq());
         scaleX = freqEvent.getMidTime() - freqEvent.getStartTime();
         scaleY = freqEvent.getCenterFreq() - freqEvent.getMinFreq();
         chart = UIManager.getChart();
-        
+
         // ADD TO APPROPRIATE SERIES 
         ObservableList<XYChart.Series> seriesList = chart.getData();
         if (seriesList.isEmpty()) {
@@ -76,17 +87,16 @@ public class DataManager {
         }
         node.setId(freqEvent.getName());
         addMouseClickSupport(seriesList);
-        
+
     }
 
-    
-    private static void addMouseClickSupport(ObservableList<XYChart.Series> seriesList ){
+    private static void addMouseClickSupport(ObservableList<XYChart.Series> seriesList) {
         // ADD CLICK SUPPORT
         seriesList.stream().forEach((series) -> {
             Debug.debug(series.toString());
             ObservableList<XYChart.Data> dataList = series.getData();
-            dataList.stream().forEach((data) -> {
-                Node n = data.getNode();
+            dataList.stream().forEach((d) -> {
+                Node n = d.getNode();
                 n.setOnMouseClicked((c) -> {
                     freqEvents.stream().forEach((fe) -> {
                         if (fe.getName().equals(n.getId())) {
@@ -96,9 +106,8 @@ public class DataManager {
                 });
             });
         });
-        
     }
-    
+
     private static void doIfSeriesExists() {
         boolean matchesExistingSeries = false;
         ObservableList<XYChart.Series> seriesList = chart.getData();

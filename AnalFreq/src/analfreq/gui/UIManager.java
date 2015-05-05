@@ -64,16 +64,17 @@ public class UIManager {
     private static TextField minFreqTextField, maxFreqTextField, startTimeTextField,
             endTimeTextField, eventNameTextField, eventDescriptionTextField;
 
+    private static Button submitUpdateButton, resetButton;
+    
+    private static Node updateNode;
+    
+    // True when updating an existing node
+    private static boolean isUpdate = false;
+    
     public static void updateForm(Node n, FreqEvent fe){
-        
+        isUpdate = true;
+        updateNode = n;
         Debug.debug(Debug.getCurrentMethodName()+"Node: "+n.getId()+" FreqEvent: "+fe.getName());
-        
-        // The following works, but we need to adjust the submit button so
-        // it can't submit events with duplicate names. Consider using Set
-        // as a filter for events to be added. Uncomment below only after
-        // that is working.
-        
-        /*
         minFreqTextField.setText(Integer.toString(fe.getMinFreq()));
         maxFreqTextField.setText(Integer.toString(fe.getMaxFreq()));
         startTimeTextField.setText(Integer.toString(fe.getStartTime()));
@@ -81,9 +82,21 @@ public class UIManager {
         eventNameTextField.setText(fe.getName());
         eventDescriptionTextField.setText(fe.getDescription());
         comboBox.setValue(fe.getType());
-        */
+        submitUpdateButton.setText("Update");
     }
     
+     private static void reset() {
+        isUpdate = false;
+        Debug.debug(Debug.getCurrentMethodName());
+        eventNameTextField.clear();
+        minFreqTextField.clear();
+        maxFreqTextField.clear();
+        startTimeTextField.clear();
+        endTimeTextField.clear();
+        eventDescriptionTextField.clear();
+        submitUpdateButton.setText("Submit");
+    }
+   
     /**
      * This method is called once per series to be plotted. For example, the KICK
      * series might contain any number of data items: KICK PUNCH, KICK CLICK etc.
@@ -152,15 +165,7 @@ public class UIManager {
 
     }
 
-    private static void clearTextFields() {
-        Debug.debug(Debug.getCurrentMethodName());
-        eventNameTextField.clear();
-        minFreqTextField.clear();
-        maxFreqTextField.clear();
-        startTimeTextField.clear();
-        endTimeTextField.clear();
-        eventDescriptionTextField.clear();
-    }
+   
 
     private static void initUIControls() {
         Debug.debug(Debug.getCurrentMethodName());
@@ -190,10 +195,10 @@ public class UIManager {
         eventDescriptionLabel = new Label("Description:");
         eventDescriptionTextField = new TextField();
 
-        // "Submit" button creation
-        Button submitButton = new Button();
-        submitButton.setText("Submit");
-        submitButton.setOnAction((ActionEvent event) -> {
+        // "Submit" and "Update" button creation
+        submitUpdateButton = new Button();
+        submitUpdateButton.setText("Submit");
+        submitUpdateButton.setOnAction((ActionEvent event) -> {
 
             //Ensure that user enters data in the correct format
             String minFreqText = minFreqTextField.getText();
@@ -207,6 +212,7 @@ public class UIManager {
             } else {
 
                 //Sending the data to the DataManager
+                if(!isUpdate){
                 DataManager.plotFreqEvent(eventNameTextField.getText(),
                         (FreqEventType)comboBox.getValue(),
                         minFreqTextField.getText(),
@@ -214,20 +220,28 @@ public class UIManager {
                         startTimeTextField.getText(),
                         endTimeTextField.getText(),
                         eventDescriptionTextField.getText());
-                clearTextFields();
+                }else{
+                    DataManager.plotFreqEvent(updateNode, eventNameTextField.getText(),
+                        (FreqEventType)comboBox.getValue(), minFreqTextField.getText(),
+                        maxFreqTextField.getText(),
+                        startTimeTextField.getText(),
+                        endTimeTextField.getText(),
+                        eventDescriptionTextField.getText());
+                }
+                reset();
             }
         });
 
         // "Reset" button creation
-        Button resetButton = new Button();
+        resetButton = new Button();
         resetButton.setText("Reset");
         resetButton.setOnAction((ActionEvent event) -> {
             Debug.debug(Debug.getCurrentMethodName() + ": Reset");
-            clearTextFields();
+            reset();
         });
 
         buttonControls = new HBox();
-        buttonControls.getChildren().addAll(submitButton, resetButton);
+        buttonControls.getChildren().addAll(submitUpdateButton, resetButton);
         buttonControls.setSpacing(10);
     }
 
