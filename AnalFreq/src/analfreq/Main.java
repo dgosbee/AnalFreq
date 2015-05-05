@@ -20,14 +20,10 @@ package analfreq;
 
 import analfreq.config.Config;
 import analfreq.debug.Debug;
-import analfreq.gui.DragZoomBubbleChart;
 import analfreq.gui.UIManager;
 import analfreq.xml.XMLReader;
 import java.io.FileNotFoundException;
 import javafx.application.Application;
-import javafx.collections.ObservableList;
-import javafx.scene.Node;
-import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
 import javax.xml.stream.XMLStreamException;
 

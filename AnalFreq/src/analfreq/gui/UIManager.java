@@ -21,12 +21,14 @@ package analfreq.gui;
 import analfreq.config.Config;
 import analfreq.datamanager.DataManager;
 import analfreq.debug.Debug;
+import analfreq.freqevent.FreqEvent;
 import analfreq.freqevent.FreqEventType;
 import analfreq.xml.XMLWriter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
@@ -62,6 +64,26 @@ public class UIManager {
     private static TextField minFreqTextField, maxFreqTextField, startTimeTextField,
             endTimeTextField, eventNameTextField, eventDescriptionTextField;
 
+    public static void updateForm(Node n, FreqEvent fe){
+        
+        Debug.debug(Debug.getCurrentMethodName()+"Node: "+n.getId()+" FreqEvent: "+fe.getName());
+        
+        // The following works, but we need to adjust the submit button so
+        // it can't submit events with duplicate names. Consider using Set
+        // as a filter for events to be added. Uncomment below only after
+        // that is working.
+        
+        /*
+        minFreqTextField.setText(Integer.toString(fe.getMinFreq()));
+        maxFreqTextField.setText(Integer.toString(fe.getMaxFreq()));
+        startTimeTextField.setText(Integer.toString(fe.getStartTime()));
+        endTimeTextField.setText(Integer.toString(fe.getEndTime()));
+        eventNameTextField.setText(fe.getName());
+        eventDescriptionTextField.setText(fe.getDescription());
+        comboBox.setValue(fe.getType());
+        */
+    }
+    
     /**
      * This method is called once per series to be plotted. For example, the KICK
      * series might contain any number of data items: KICK PUNCH, KICK CLICK etc.

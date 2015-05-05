@@ -26,11 +26,9 @@ import analfreq.gui.UIManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
-import javafx.beans.property.ObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tooltip;
 
 /**
@@ -53,17 +51,23 @@ public class DataManager {
 
     public static void plotFreqEvent(String name, FreqEventType type, String minFreq, String maxFreq,
             String startTime, String endTime, String description) {
-        Debug.debug(Debug.getCurrentMethodName() + "================================================================================>");
+        
+        // CREATE FREQ EVENT
         freqEvent = new FreqEvent(name, type, Integer.parseInt(minFreq), Integer.parseInt(maxFreq),
                 Integer.parseInt(startTime), Integer.parseInt(endTime));
         freqEvent.setDescription(description);
         freqEvents.add(freqEvent);
         tokenizer = new StringTokenizer(freqEvent.getName());
         freqEventToken = tokenizer.nextToken();
+        
+        
+        // CREATE CHART DATA
         data = new XYChart.Data(freqEvent.getMidTime(), freqEvent.getCenterFreq());
         scaleX = freqEvent.getMidTime() - freqEvent.getStartTime();
         scaleY = freqEvent.getCenterFreq() - freqEvent.getMinFreq();
         chart = UIManager.getChart();
+        
+        // ADD TO APPROPRIATE SERIES 
         ObservableList<XYChart.Series> seriesList = chart.getData();
         if (seriesList.isEmpty()) {
             createNewSeries();
@@ -71,25 +75,29 @@ public class DataManager {
             doIfSeriesExists();
         }
         node.setId(freqEvent.getName());
-        Debug.debug(node.toString());
-        Debug.debug(Debug.getCurrentMethodName() + "================================================================================>");
+        addMouseClickSupport(seriesList);
+        
+    }
 
+    
+    private static void addMouseClickSupport(ObservableList<XYChart.Series> seriesList ){
         // ADD CLICK SUPPORT
         seriesList.stream().forEach((series) -> {
             Debug.debug(series.toString());
             ObservableList<XYChart.Data> dataList = series.getData();
             dataList.stream().forEach((data) -> {
-                Node node = data.getNode();
-                node.setOnMouseClicked((c) -> {
-                    Debug.debug(Debug.getCurrentMethodName() + ": " + node.getId());
+                Node n = data.getNode();
+                n.setOnMouseClicked((c) -> {
+                    freqEvents.stream().forEach((fe) -> {
+                        if (fe.getName().equals(n.getId())) {
+                            UIManager.updateForm(n, fe);
+                        }
+                    });
                 });
             });
         });
-
+        
     }
-
-    
-  
     
     private static void doIfSeriesExists() {
         boolean matchesExistingSeries = false;
