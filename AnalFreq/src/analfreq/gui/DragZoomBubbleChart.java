@@ -31,6 +31,7 @@ import javafx.scene.layout.Region;
 
 public class DragZoomBubbleChart extends BubbleChart {
 
+    private final MouseWheelHandler mouseWheelHandler = new MouseWheelHandler();
     private final NumberAxis xAxis, yAxis;
     private final Region plotArea;
     private int currMaxFreq = Config.MAX_FREQ;
@@ -67,56 +68,22 @@ public class DragZoomBubbleChart extends BubbleChart {
         });
 
         setOnScroll((ScrollEvent event) -> {
-            
-            /*
-            NOTE: This code is temporary. There MUST be some better
-            way to determine which direction the mouse wheel is turning.
-            But so far we can only figure out how to do it this way. We do 
-            a check for the operating system and run one kind of if statement 
-            for Linux, and another for Mac/Win.
-            */
-            
-            if (System.getProperty("os.name").equals("Linux")) {
-                doLinuxZoom(event);
-            } else {
-                doMacWinZoom(event);
-            }
+           MouseWheelDirection direction = mouseWheelHandler.getDirection(event);
+           if(direction.equals(MouseWheelDirection.UP) && !event.isShiftDown()){
+               zoomInFreq();
+           } else if(direction.equals(MouseWheelDirection.DOWN) && !event.isShiftDown()){
+               zoomOutFreq();
+           } else if(direction.equals(MouseWheelDirection.UP) && event.isShiftDown()){
+               zoomInTime();
+           }else if(direction.equals(MouseWheelDirection.DOWN) && event.isShiftDown()){
+               zoomOutTime();
+           }
         });
     }
 
-    private void doLinuxZoom(ScrollEvent event) {
+   
 
-        if (event.getDeltaY() > 0 && (!event.isShiftDown())) {
-            zoomInFreq();
-        }
-
-        if (event.getDeltaY() < 0 && (!event.isShiftDown())) {
-            zoomOutFreq();
-        }
-
-        if (event.getDeltaY() > 0 && (event.isShiftDown())) {
-            zoomInTime();
-        }
-
-        if (event.getDeltaY() < 0 && (event.isShiftDown())) {
-            zoomOutTime();
-        }
-    }
-
-    private void doMacWinZoom(ScrollEvent event) {
-
-        if (event.getDeltaX() > 0) {
-            zoomInTime();
-        } else if (event.getDeltaX() < 0) {
-            zoomOutTime();
-        }
-
-        if (event.getDeltaY() > 0) {
-            zoomInFreq();
-        } else if (event.getDeltaY() < 0) {
-            zoomOutFreq();
-        }
-    }
+   
 
     private void zoomInFreq() {
         int newMaxFreq = (int) (currMaxFreq * .5);
