@@ -30,8 +30,8 @@ public final class FreqEvent {
     private String name,description;
     private FreqEventType type;
     private int minFreq, maxFreq, centerFreq, 
-            startTime, midTime, endTime;
-    
+            startTime, midTime, endTime,ID;
+   
     public FreqEvent(String name, FreqEventType type, int minFreq, int maxFreq,
             int startTime, int endTime) {
         this.name = name;
@@ -42,8 +42,13 @@ public final class FreqEvent {
         this.startTime = startTime;
         this.midTime = (startTime+endTime)/2;
         this.endTime = endTime;
+        this.ID = this.hashCode();
     }
 
+    public int getID(){
+        return this.ID;
+    }
+    
     public FreqEventType getType(){
         return type;
     }

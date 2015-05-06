@@ -56,7 +56,7 @@ public class UIManager {
     private static MenuBar menuBar;
     private static Menu menuFile, examplesMenu, helpMenu;
     private static Label createNewFreqEventLabel, typeLabel, minFreqLabel, maxFreqLabel,
-            startTimeLabel, endTimeLabel, eventNameLabel, eventDescriptionLabel;
+            startTimeLabel, endTimeLabel, eventNameLabel, eventDescriptionLabel, IDLabel, IDValue;
 
     private static HBox eventTypeControls, minFreqControls, maxFreqControls,
             startTimeControls, endTimeControls, eventDescriptionControls, buttonControls;
@@ -83,6 +83,7 @@ public class UIManager {
         eventDescriptionTextField.setText(fe.getDescription());
         comboBox.setValue(fe.getType());
         submitUpdateButton.setText("Update");
+        IDValue.setText(Integer.toString(fe.getID()));
     }
 
     private static void reset() {
@@ -96,6 +97,7 @@ public class UIManager {
         endTimeTextField.clear();
         eventDescriptionTextField.clear();
         submitUpdateButton.setText("Submit");
+        IDValue.setText("N/A");
     }
 
     /**
@@ -195,6 +197,8 @@ public class UIManager {
         eventNameTextField = new TextField();
         eventDescriptionLabel = new Label("Description:");
         eventDescriptionTextField = new TextField();
+        IDLabel = new Label("Event ID:");
+        IDValue = new Label("N/A");
 
         // "Submit" and "Update" button creation
         submitUpdateButton = new Button();
@@ -222,13 +226,13 @@ public class UIManager {
                             endTimeTextField.getText(),
                             eventDescriptionTextField.getText());
                 } else {
-                   DataManager.updateFreqEvent(eventNameTextField.getText(),
+                    DataManager.updateFreqEvent(eventNameTextField.getText(),
                             (FreqEventType) comboBox.getValue(),
                             minFreqTextField.getText(),
                             maxFreqTextField.getText(),
                             startTimeTextField.getText(),
                             endTimeTextField.getText(),
-                            eventDescriptionTextField.getText());                   
+                            eventDescriptionTextField.getText(),Integer.parseInt(IDValue.getText()));
                 }
                 reset();
             }
@@ -241,7 +245,7 @@ public class UIManager {
             Debug.debug(Debug.getCurrentMethodName() + ": Reset");
             reset();
         });
-        
+
         buttonControls = new HBox();
         buttonControls.getChildren().addAll(submitUpdateButton, resetButton);
         buttonControls.setSpacing(10);
@@ -270,7 +274,10 @@ public class UIManager {
         gridPane.add(endTimeTextField, 1, 6);
         gridPane.add(eventDescriptionLabel, 0, 7);
         gridPane.add(eventDescriptionTextField, 1, 7);
-        gridPane.add(buttonControls, 0, 8, 2, 1);
+        gridPane.add(IDLabel, 0, 8);
+        gridPane.add(IDValue, 1, 8);
+        gridPane.add(buttonControls, 0, 9, 2, 1);
+
         return gridPane;
     }
 }

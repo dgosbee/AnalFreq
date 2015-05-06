@@ -18,7 +18,6 @@
  */
 package analfreq.datamanager;
 
-import analfreq.debug.Debug;
 import analfreq.freqevent.FreqEvent;
 import analfreq.freqevent.FreqEventType;
 import analfreq.gui.UIManager;
@@ -47,11 +46,18 @@ public class DataManager {
     private static double currScaleX;
     private static double currScaleY;
     private static Node currNode;
-    private static final Map<String, XYChart.Data> freqEventDataMap = new HashMap<>();
+    private static final Map<Integer, XYChart.Data> freqEventDataMap = new HashMap<>();
     private static FreqEvent toReplace = null;
 
+    
+    /**
+     * This method was written very quickly. It seems to work, but should be compared
+     * against the code in plotFreqEvent. Common code should be factored out to their
+     * own methods. There might be unused variables here too... this 
+     * really hasn't been tested very much.
+     */
     public static void updateFreqEvent(String name, FreqEventType type, String minFreq, String maxFreq,
-            String startTime, String endTime, String description) {
+            String startTime, String endTime, String description, int oldID) {
 
         // CREATE THE CURRENT FREQ EVENT FROM INCOMING TEXT DATA
         currFreqEvent = new FreqEvent(name, type, Integer.parseInt(minFreq), Integer.parseInt(maxFreq),
@@ -60,17 +66,17 @@ public class DataManager {
 
         // REPLACE PREVIOUSLY STORED FREQ EVENT WITH NEWLY CREATED FREQ EVENT
         allFreqEvents.stream().forEach((oldFreqEvent) -> {
-            if (oldFreqEvent.getName().equals(currFreqEvent.getName())) {
+            if (oldFreqEvent.getID() == oldID) {
                 toReplace = oldFreqEvent;
             }
         });
-        if(toReplace!=null){
+        if (toReplace != null) {
             allFreqEvents.remove(toReplace);
             allFreqEvents.add(currFreqEvent);
         }
-        
-        // GET PREVIOUSLY STORED DATA FOR EVENTS WITH THIS NAME
-        currData = freqEventDataMap.get(name);
+
+        // GET PREVIOUSLY STORED DATA
+        currData = freqEventDataMap.get(Integer.valueOf(oldID));
 
         // ADJUST THE DATA
         currData.setXValue(currFreqEvent.getMidTime());
@@ -79,10 +85,13 @@ public class DataManager {
         // SCALE THE DATA
         currScaleX = currFreqEvent.getMidTime() - currFreqEvent.getStartTime();
         currScaleY = currFreqEvent.getCenterFreq() - currFreqEvent.getMinFreq();
-
         scaleNode();
+        
+        // SET REMAINING ITEMS
+        currNode.setId(Integer.toString(currFreqEvent.getID()));
         installTooltip();
-
+        freqEventDataMap.put(currFreqEvent.getID(), currData);
+        addMouseClickSupport(UIManager.getChart().getData());
     }
 
     public static void plotFreqEvent(String name, FreqEventType type, String minFreq, String maxFreq,
@@ -112,24 +121,24 @@ public class DataManager {
         } else {
             doIfSeriesExists();
         }
-        currNode.setId(currFreqEvent.getName());
+        currNode.setId(Integer.toString(currFreqEvent.getID()));
         addMouseClickSupport(seriesList);
 
         // Store for later in case we need it
-        freqEventDataMap.put(currFreqEvent.getName(), currData);
+        freqEventDataMap.put(currFreqEvent.getID(), currData);
 
     }
 
     private static void addMouseClickSupport(ObservableList<XYChart.Series> seriesList) {
         // ADD CLICK SUPPORT
         seriesList.stream().forEach((series) -> {
-            Debug.debug(series.toString());
+          
             ObservableList<XYChart.Data> dataList = series.getData();
             dataList.stream().forEach((d) -> {
                 Node n = d.getNode();
                 n.setOnMouseClicked((c) -> {
                     allFreqEvents.stream().forEach((fe) -> {
-                        if (fe.getName().equals(n.getId())) {
+                        if (Integer.toString(fe.getID()).equals(n.getId())) {
                             UIManager.updateForm(n, fe);
                         }
                     });
