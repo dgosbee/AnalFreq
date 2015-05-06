@@ -23,7 +23,7 @@ package analfreq.config;
 public class Config {
     
     public static final String XML_PATH = "src/analfreq/xml/project-data.xml";
-    public static final String STAGE_TITLE = "Frequency Masking";
+    public static final String STAGE_TITLE = "Black River Audio Works (www.blackriveraudioworks.com)";
     public static final String X_AXIS_LABEL = "Time (Seconds)";
     public static final String Y_AXIS_LABEL = "Frequency (Hz)";
     public static final String BUBBLE_CHART_TITLE = "Frequency Events";

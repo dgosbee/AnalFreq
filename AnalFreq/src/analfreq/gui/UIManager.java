@@ -182,8 +182,8 @@ public class UIManager {
         comboBox = new ComboBox(typeOptions);
         comboBox.setValue(FreqEventType.GOOD);
 
-        createNewFreqEventLabel = new Label("Freq Event Editor");
-        createNewFreqEventLabel.setFont(new Font(23));
+        createNewFreqEventLabel = new Label("Property Editor");
+        createNewFreqEventLabel.setFont(new Font(20));
         typeLabel = new Label("Event Type:");
         minFreqLabel = new Label("Minimum Freq:");
         minFreqTextField = new TextField();
