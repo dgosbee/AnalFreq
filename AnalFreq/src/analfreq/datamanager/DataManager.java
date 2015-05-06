@@ -51,61 +51,7 @@ public class DataManager {
     private static Node node;
     private static FreqEvent toRemove;
 
-    /*
-     * Updates a previously plotted frequency event
-     */
-    public static void updatePlottedFreqEvent(Node updateNode, String name,
-            FreqEventType type, String minFreq, String maxFreq,
-            String startTime, String endTime, String description) {
-
-        Debug.debug(Debug.getCurrentMethodName());
-        Debug.debug("Would UPDATE existing node..." + updateNode.toString());
-        Debug.debug("*************************");
-        Debug.debug("UPDATE IMPLEMENTATION TBD");
-        Debug.debug("*************************");
-        Debug.debug("=========================== RECEIVED: " + description);
-
-        // Find the previously added FreqEvent and remove it from the list
-        freqEvents.stream().forEach((fe) -> {
-            if (fe.getName().equals(name)) {
-                Debug.debug("WOULD REMOVE: " + fe.toString());
-                toRemove = fe;
-            }
-        });
-        Debug.debug("Removing: " + toRemove.getName());
-        freqEvents.remove(toRemove);
-
-        // Sanity check
-        Debug.debug("Inspecting all FreqEvents:");
-        freqEvents.stream().forEach((e) -> {
-            Debug.debug(Debug.getCurrentMethodName() + " " + e.getName());
-        });
-
-        // Reconstruct FreqEvent based on new incoming data
-        FreqEvent reconstructed = new FreqEvent(name, type,
-                Integer.parseInt(minFreq),
-                Integer.parseInt(maxFreq),
-                Integer.parseInt(startTime), Integer.parseInt(endTime));
-        reconstructed.setDescription(description);
-        Debug.debug("RECONSTRUCTED: " + reconstructed.toString());
-
-        // Add the reconstructed FreqEvent to the master list
-        freqEvents.add(reconstructed);
-
-        // Sanity check
-        Debug.debug("Inspecting all FreqEvents:");
-        freqEvents.stream().forEach((e) -> {
-            Debug.debug(Debug.getCurrentMethodName() + " " + e.getName());
-        });
-
-        // Add tooltip
-        Tooltip.install(updateNode, new Tooltip(reconstructed.toString()));
-
-        Debug.debug("********************************************************");
-        Debug.debug("MUST IMPLEMENT NODE/CHART RESIZING BASED ON NEW DATA");
-        Debug.debug("DATA HAS BEEN UPDATED BUT NOT REDRAWN");
-        Debug.debug("********************************************************");
-    }
+   
 
     public static void plotFreqEvent(String name, FreqEventType type, String minFreq, String maxFreq,
             String startTime, String endTime, String description) {
