@@ -21,12 +21,12 @@ package analfreq.datamanager;
 import analfreq.debug.Debug;
 import analfreq.freqevent.FreqEvent;
 import analfreq.freqevent.FreqEventType;
-import analfreq.gui.DragZoomBubbleChart;
 import analfreq.gui.UIManager;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 import java.util.StringTokenizer;
-import java.util.function.Consumer;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.chart.XYChart;
@@ -40,45 +40,83 @@ import javafx.scene.control.Tooltip;
  */
 public class DataManager {
 
-    private static DragZoomBubbleChart chart;
-    private static final List<FreqEvent> freqEvents = new ArrayList<>();
-    private static FreqEvent freqEvent;
-    private static StringTokenizer tokenizer;
-    private static String freqEventToken;
-    private static XYChart.Data data;
-    private static double scaleX;
-    private static double scaleY;
-    private static Node node;
-    private static FreqEvent toRemove;
+    private static final Set<FreqEvent> allFreqEvents = new HashSet<>(); // no duplicates allowed!
+    private static FreqEvent currFreqEvent;
+    private static String currSeriesName;
+    private static XYChart.Data currData;
+    private static double currScaleX;
+    private static double currScaleY;
+    private static Node currNode;
+    private static final Map<String, XYChart.Data> freqEventDataMap = new HashMap<>();
+    private static FreqEvent toReplace = null;
 
-   
+    public static void updateFreqEvent(String name, FreqEventType type, String minFreq, String maxFreq,
+            String startTime, String endTime, String description) {
+
+        // CREATE THE CURRENT FREQ EVENT FROM INCOMING TEXT DATA
+        currFreqEvent = new FreqEvent(name, type, Integer.parseInt(minFreq), Integer.parseInt(maxFreq),
+                Integer.parseInt(startTime), Integer.parseInt(endTime));
+        currFreqEvent.setDescription(description);
+
+        // REPLACE PREVIOUSLY STORED FREQ EVENT WITH NEWLY CREATED FREQ EVENT
+        allFreqEvents.stream().forEach((oldFreqEvent) -> {
+            if (oldFreqEvent.getName().equals(currFreqEvent.getName())) {
+                toReplace = oldFreqEvent;
+            }
+        });
+        if(toReplace!=null){
+            allFreqEvents.remove(toReplace);
+            allFreqEvents.add(currFreqEvent);
+        }
+        
+        // GET PREVIOUSLY STORED DATA FOR EVENTS WITH THIS NAME
+        currData = freqEventDataMap.get(name);
+
+        // ADJUST THE DATA
+        currData.setXValue(currFreqEvent.getMidTime());
+        currData.setYValue(currFreqEvent.getCenterFreq());
+
+        // SCALE THE DATA
+        currScaleX = currFreqEvent.getMidTime() - currFreqEvent.getStartTime();
+        currScaleY = currFreqEvent.getCenterFreq() - currFreqEvent.getMinFreq();
+
+        scaleNode();
+        installTooltip();
+
+    }
 
     public static void plotFreqEvent(String name, FreqEventType type, String minFreq, String maxFreq,
             String startTime, String endTime, String description) {
 
-        // CREATE FREQ EVENT
-        freqEvent = new FreqEvent(name, type, Integer.parseInt(minFreq), Integer.parseInt(maxFreq),
+        // CREATE THE CURRENT FREQ EVENT FROM INCOMING TEXT DATA
+        currFreqEvent = new FreqEvent(name, type, Integer.parseInt(minFreq), Integer.parseInt(maxFreq),
                 Integer.parseInt(startTime), Integer.parseInt(endTime));
-        freqEvent.setDescription(description);
-        freqEvents.add(freqEvent);
-        tokenizer = new StringTokenizer(freqEvent.getName());
-        freqEventToken = tokenizer.nextToken();
+        currFreqEvent.setDescription(description);
 
-        // CREATE CHART DATA
-        data = new XYChart.Data(freqEvent.getMidTime(), freqEvent.getCenterFreq());
-        scaleX = freqEvent.getMidTime() - freqEvent.getStartTime();
-        scaleY = freqEvent.getCenterFreq() - freqEvent.getMinFreq();
-        chart = UIManager.getChart();
+        // ADD TO TOTAL SET
+        allFreqEvents.add(currFreqEvent);
 
-        // ADD TO APPROPRIATE SERIES 
-        ObservableList<XYChart.Series> seriesList = chart.getData();
+        // DETERMINE SERIES
+        StringTokenizer tokenizer = new StringTokenizer(currFreqEvent.getName());
+        currSeriesName = tokenizer.nextToken();
+
+        // CREATE DATA TO PLACE INSIDE THE BUBBLE CHART. ALSO CALCULATE BUBBLE SCALE.
+        currData = new XYChart.Data(currFreqEvent.getMidTime(), currFreqEvent.getCenterFreq());
+        currScaleX = currFreqEvent.getMidTime() - currFreqEvent.getStartTime();
+        currScaleY = currFreqEvent.getCenterFreq() - currFreqEvent.getMinFreq();
+
+        // ADD DATA TO AN APPROPRIATE SERIES
+        ObservableList<XYChart.Series> seriesList = UIManager.getChart().getData();
         if (seriesList.isEmpty()) {
             createNewSeries();
         } else {
             doIfSeriesExists();
         }
-        node.setId(freqEvent.getName());
+        currNode.setId(currFreqEvent.getName());
         addMouseClickSupport(seriesList);
+
+        // Store for later in case we need it
+        freqEventDataMap.put(currFreqEvent.getName(), currData);
 
     }
 
@@ -90,7 +128,7 @@ public class DataManager {
             dataList.stream().forEach((d) -> {
                 Node n = d.getNode();
                 n.setOnMouseClicked((c) -> {
-                    freqEvents.stream().forEach((fe) -> {
+                    allFreqEvents.stream().forEach((fe) -> {
                         if (fe.getName().equals(n.getId())) {
                             UIManager.updateForm(n, fe);
                         }
@@ -102,11 +140,11 @@ public class DataManager {
 
     private static void doIfSeriesExists() {
         boolean matchesExistingSeries = false;
-        ObservableList<XYChart.Series> seriesList = chart.getData();
+        ObservableList<XYChart.Series> seriesList = UIManager.getChart().getData();
         for (XYChart.Series series : seriesList) {
-            if (freqEventToken.equals(series.getName())) {
+            if (currSeriesName.equals(series.getName())) {
                 matchesExistingSeries = true;
-                series.getData().add(data);
+                series.getData().add(currData);
                 scaleNode();
                 installTooltip();
             }
@@ -118,24 +156,24 @@ public class DataManager {
 
     private static void createNewSeries() {
         XYChart.Series series = new XYChart.Series();
-        series.setName(freqEventToken);
-        series.getData().add(data);
+        series.setName(currSeriesName);
+        series.getData().add(currData);
         UIManager.plotObject(series); // node is null until this call!
         scaleNode();
         installTooltip();
     }
 
     private static void installTooltip() {
-        Tooltip.install(node, new Tooltip(freqEvent.toString()));
+        Tooltip.install(currNode, new Tooltip(currFreqEvent.toString()));
     }
 
     private static void scaleNode() {
-        node = data.getNode();
-        node.setScaleX(scaleX);
-        node.setScaleY(scaleY);
+        currNode = currData.getNode();
+        currNode.setScaleX(currScaleX);
+        currNode.setScaleY(currScaleY);
     }
 
-    public static List<FreqEvent> getFreqEvents() {
-        return freqEvents;
+    public static Set<FreqEvent> getFreqEvents() {
+        return allFreqEvents;
     }
 }

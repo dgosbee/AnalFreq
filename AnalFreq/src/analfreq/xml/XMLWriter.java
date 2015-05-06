@@ -24,6 +24,7 @@ import analfreq.config.Config;
 import analfreq.freqevent.FreqEvent;
 import java.io.File;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
@@ -40,7 +41,7 @@ import org.w3c.dom.Element;
 
 public class XMLWriter {
 
-    public static void writeXML(List<FreqEvent> freqEvents) {
+    public static void writeXML(Set<FreqEvent> freqEvents) {
         DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder = null;
         try {

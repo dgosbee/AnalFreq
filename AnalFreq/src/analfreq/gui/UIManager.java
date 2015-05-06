@@ -222,10 +222,13 @@ public class UIManager {
                             endTimeTextField.getText(),
                             eventDescriptionTextField.getText());
                 } else {
-                    
-                   Debug.debug(Debug.getCurrentMethodName()+"****************************");
-                   Debug.debug(Debug.getCurrentMethodName()+"UPDATE CODE TBD");
-                   Debug.debug(Debug.getCurrentMethodName()+"****************************");
+                   DataManager.updateFreqEvent(eventNameTextField.getText(),
+                            (FreqEventType) comboBox.getValue(),
+                            minFreqTextField.getText(),
+                            maxFreqTextField.getText(),
+                            startTimeTextField.getText(),
+                            endTimeTextField.getText(),
+                            eventDescriptionTextField.getText());                   
                 }
                 reset();
             }
